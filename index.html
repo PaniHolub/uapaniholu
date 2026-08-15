@@ -19,6 +19,13 @@
         font-family: "Courier New", monospace;
         min-height: 100vh;
     }
+   .heart {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    color: #ff7de9;
+    text-shadow: 0 0 10px #ff00ff;
+}
 
     /* головний контейнер */
 
@@ -40,14 +47,30 @@
             inset 0 0 30px #180020;
     }
 
-    header h1 {
-        margin: 0;
-        font-size: 70px;
-        color: #b84cff;
+  header h1 {
+    margin: 0;
+    font-size: 70px;
+    color: #b84cff;
+    text-shadow:
+        0 0 5px #b84cff,
+        0 0 20px #8b00ff;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
         text-shadow:
             0 0 5px #b84cff,
-            0 0 20px #8b00ff;
-       header h1 {
+            0 0 10px #8b00ff;
+    }
+
+    to {
+        text-shadow:
+            0 0 5px #ff7de9,
+            0 0 30px #ff00ff,
+            0 0 50px #8b00ff;
+    }
+}
     animation: glow 2s infinite alternate;
 }
 
@@ -170,11 +193,11 @@
         }
     }
 </style>
-  
 </head>
 <body>
 
 <div class="heart">♡</div>
+}
 
 <header>
     <h1>Блядскій сайт</h1>
@@ -255,8 +278,9 @@
 
         <p>
             Котрий люибить комп'ютери...ламати...грати в пк тобто. 
-           Ще обожнює битися головою об стінку по вечорам, так швише кров до голови
-           доходить і приходять ще більш геніальніші ідеї як зламати свій кампуктєр.
+           Ще обожнює битися головою об стінку по вечорам, так швише 
+           кров до голови доходить і приходять ще більш геніальніші
+           ідеї як зламати свій кампуктєр.
         </p>
     </section>
 
