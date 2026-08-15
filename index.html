@@ -47,7 +47,24 @@
         text-shadow:
             0 0 5px #b84cff,
             0 0 20px #8b00ff;
+       header h1 {
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow:
+            0 0 5px #b84cff,
+            0 0 10px #8b00ff;
     }
+
+    to {
+        text-shadow:
+            0 0 5px #ff7de9,
+            0 0 30px #ff00ff,
+            0 0 50px #8b00ff;
+    }
+}
 
     header p {
         color: #9b5bc7;
@@ -153,11 +170,11 @@
         }
     }
 </style>
+  
 </head>
-
 <body>
 
-<div class="site">
+<div class="heart">♡</div>
 
 <header>
     <h1>Блядскій сайт</h1>
@@ -210,7 +227,7 @@
 
 
     <section class="box">
-        <h2>Мій маразм</h2>
+        <h2>Мої інтереси</h2>
 
         <p>
             ♡ музика<br>
@@ -237,8 +254,9 @@
         </p>
 
         <p>
-            люблю музику, малювати,
-            комп'ютери...ламати...грати в пк тобто.
+            Котрий люибить комп'ютери...ламати...грати в пк тобто. 
+           Ще обожнює битися головою об стінку по вечорам, так швише кров до голови
+           доходить і приходять ще більш геніальніші ідеї як зламати свій кампуктєр.
         </p>
     </section>
 
@@ -279,6 +297,28 @@
 </footer>
 
 </div>
+   <script>
+let secretCode = "pani";
+let input = "";
+
+document.addEventListener("keydown", function(event) {
+    input += event.key.toLowerCase();
+
+    if (input.length > secretCode.length) {
+        input = input.slice(-secretCode.length);
+    }
+
+    if (input === secretCode) {
+        alert(
+            "ЯК ТИ ВЗАГАЛІ ДО ЦЬОГО ДОГАДАВСЯ?!\n\n" +
+            "ЄБАТЬ, Я В АХУЄ.\n\n" +
+            "ОПТІМУС ПРАЙМ АПЛОДУЄ СТОЯ 👏"
+        );
+
+        input = "";
+    }
+});
+</script>
 
 </body>
 </html>
