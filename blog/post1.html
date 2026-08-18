@@ -3,7 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <title>Мій блог</title>
-</head>
+</he<div id="comments">
+    <h2>♡ КОМЕНТАРІ ♡</h2>
+
+    <textarea id="commentText" placeholder="Напиши щось..."></textarea>
+    <br>
+    <button onclick="addComment()">Відправити</button>
+
+    <div id="commentList"></div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://sijjjlnhfmbmvswphxhz.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpampqbG5oZm1ibXZzd3BoeGh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDk2OTEsImV4cCI6MjEwMjYyNTY5MX0.eyU6n6C6iA8Lxhmj_qktcAbAvfm5cvbm-_3_EoO4RPI";
+
+async function loadComments() {
+    const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/comments?select=*&order=created_at.desc`,
+        {
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`
+            }
+        }
+    );
+
+    const comments = await response.json();
+
+    const list = document.getElementById("commentList");
+    list.innerHTML = "";
+
+    comments.forEach(comment => {
+        const div = document.createElement("div");
+        div.className = "comment";
+
+        div.textContent = comment.comment;
+
+        list.appendChild(div);
+    });
+}
+
+async function addComment() {
+    const text = document.getElementById("commentText").value.trim();
+
+    if (!text) return;
+
+    await fetch(`${SUPABASE_URL}/rest/v1/comments`, {
+        method: "POST",
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+            comment: text
+        })
+    });
+
+    document.getElementById("commentText").value = "";
+
+    loadComments();
+}
+
+loadComments();
+</script>ad>
+  
 
 <body style="background:#080008;color:#d8a7ff;font-family:monospace;">
 
