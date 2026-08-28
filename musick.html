@@ -2,6 +2,7 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ШАНСОН</title>
 
 <style>
@@ -59,13 +60,101 @@ h1 {
     width: 100%;
 }
 
+
+/* НИЖНІЙ КВАДРАТ */
+
+.bottom-box {
+    width: 700px;
+    max-width: 90%;
+    margin: 30px auto 0;
+    padding: 25px;
+
+    border: 1px solid #8b2fc9;
+    background: #080008;
+
+    box-shadow:
+        0 0 20px #6d2094,
+        inset 0 0 25px #180020;
+}
+
+
+/* ПОСИЛАННЯ НА ГОЛОВНУ */
+
 .back {
+    display: inline-block;
+    margin-bottom: 25px;
+
     color: #ff7de9;
     text-decoration: none;
 }
 
 .back:hover {
     color: white;
+}
+
+
+/* КОМЕНТАРІ */
+
+#comments h2 {
+    color: #c15cff;
+
+    text-shadow:
+        0 0 5px #b84cff,
+        0 0 15px #8b00ff;
+}
+
+#commentText {
+    width: 90%;
+    min-height: 80px;
+
+    padding: 10px;
+
+    resize: vertical;
+
+    background: #100016;
+    color: #d8a7ff;
+
+    border: 1px solid #4d176b;
+
+    font-family: monospace;
+}
+
+#commentText::placeholder {
+    color: #7d588c;
+}
+
+#comments button {
+    margin-top: 10px;
+    padding: 8px 20px;
+
+    background: #100016;
+    color: #ff7de9;
+
+    border: 1px solid #8b2fc9;
+
+    font-family: monospace;
+    cursor: pointer;
+}
+
+#comments button:hover {
+    color: white;
+    box-shadow: 0 0 10px #8b00ff;
+}
+
+#commentList {
+    margin-top: 20px;
+}
+
+.comment {
+    margin: 10px 0;
+    padding: 12px;
+
+    text-align: left;
+
+    background: #100016;
+    border: 1px solid #4d176b;
+
+    color: #d8a7ff;
 }
 
 </style>
@@ -83,34 +172,27 @@ h1 {
 
     <div class="track">
         <span class="track-name">01. Yello</span>
-
         <audio controls>
             <source src="music/Yello.mp3" type="audio/mpeg">
         </audio>
     </div>
 
-
     <div class="track">
         <span class="track-name">02. 229</span>
-
         <audio controls>
             <source src="music/229.mp3" type="audio/mpeg">
         </audio>
     </div>
 
-
     <div class="track">
         <span class="track-name">03. ХЗВ КЛИЧКО</span>
-
         <audio controls>
             <source src="music/ХЗВ КЛИЧКО.mp3" type="audio/mpeg">
         </audio>
     </div>
 
-
     <div class="track">
         <span class="track-name">04. My Cat Jack Off Jill</span>
-
         <audio controls>
             <source src="music/My Cat Jack Off Jill.mp3" type="audio/mpeg">
         </audio>
@@ -118,36 +200,31 @@ h1 {
 
     <div class="track">
         <span class="track-name">05. MFGreenGrey</span>
-
         <audio controls>
             <source src="music/MFGreenGrey.mp3" type="audio/mpeg">
         </audio>
     </div>
 
-   <div class="track">
+    <div class="track">
         <span class="track-name">06. ОРЕСТ ЛЮТИЙ котлети з онука</span>
-
         <audio controls>
             <source src="music/ОРЕСТ ЛЮТИЙ котлети з онука.mp3" type="audio/mpeg">
         </audio>
     </div>
 
-   <div class="track">
+    <div class="track">
         <span class="track-name">07. Моя планета Фліт</span>
-
         <audio controls>
             <source src="music/Моя планета Фліт.mp3" type="audio/mpeg">
         </audio>
     </div>
 
-       <div class="track">
+    <div class="track">
         <span class="track-name">08. Californication-Red Hot Chili Peppers</span>
-
         <audio controls>
             <source src="music/Californication-Red Hot Chili Peppers.mp3" type="audio/mpeg">
         </audio>
     </div>
-   
 
     <div class="track">
         <span class="track-name">09. ЗЕ ЕНД...</span>
@@ -156,24 +233,45 @@ h1 {
 </div>
 
 
-<a href="index.html" class="back">
-← назад на головну
-</a>
-      </he<div id="comments">
-    <h2>♡ КОМЕНТАРІ ♡</h2>
+<!-- ОКРЕМИЙ КВАДРАТ ДЛЯ ПОСИЛАННЯ І КОМЕНТАРІВ -->
 
-    <textarea id="commentText" placeholder="Напиши щось..."></textarea>
-    <br>
-    <button onclick="addComment()">Відправити</button>
+<div class="bottom-box">
 
-    <div id="commentList"></div>
+    <a href="index.html" class="back">
+        ← назад на головну
+    </a>
+
+    <div id="comments">
+
+        <h2>♡ КОМЕНТАРІ ♡</h2>
+
+        <textarea
+            id="commentText"
+            placeholder="Напиши щось..."
+        ></textarea>
+
+        <br>
+
+        <button onclick="addComment()">
+            Відправити
+        </button>
+
+        <div id="commentList"></div>
+
+    </div>
+
 </div>
 
+
 <script>
+
 const SUPABASE_URL = "https://sijjjlnhfmbmvswphxhz.supabase.co";
+
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpampqbG5oZm1ibXZzd3BoeGh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDk2OTEsImV4cCI6MjEwMjYyNTY5MX0.eyU6n6C6iA8Lxhmj_qktcAbAvfm5cvbm-_3_EoO4RPI";
 
+
 async function loadComments() {
+
     const response = await fetch(
         `${SUPABASE_URL}/rest/v1/comments?select=*&order=created_at.desc`,
         {
@@ -187,44 +285,59 @@ async function loadComments() {
     const comments = await response.json();
 
     const list = document.getElementById("commentList");
+
     list.innerHTML = "";
 
     comments.forEach(comment => {
+
         const div = document.createElement("div");
+
         div.className = "comment";
 
         div.textContent = comment.comment;
 
         list.appendChild(div);
+
     });
 }
 
+
 async function addComment() {
-    const text = document.getElementById("commentText").value.trim();
+
+    const text = document
+        .getElementById("commentText")
+        .value
+        .trim();
 
     if (!text) return;
 
-    await fetch(`${SUPABASE_URL}/rest/v1/comments`, {
-        method: "POST",
-        headers: {
-            "apikey": SUPABASE_KEY,
-            "Authorization": `Bearer ${SUPABASE_KEY}`,
-            "Content-Type": "application/json",
-            "Prefer": "return=minimal"
-        },
-        body: JSON.stringify({
-            comment: text
-        })
-    });
+    await fetch(
+        `${SUPABASE_URL}/rest/v1/comments`,
+        {
+            method: "POST",
+
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            },
+
+            body: JSON.stringify({
+                comment: text
+            })
+        }
+    );
 
     document.getElementById("commentText").value = "";
 
     loadComments();
 }
 
-loadComments();
-</script>ad>
 
+loadComments();
+
+</script>
 
 </body>
 </html>
