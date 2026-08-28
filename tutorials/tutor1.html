@@ -26,16 +26,15 @@ body {
     color: #d9a7ff;
     font-family: "Courier New", monospace;
 }
-    /* ===== ОСНОВА ===== */
-    
+
 .site {
     width: 900px;
     max-width: 92%;
     margin: 40px auto;
 }
 
-    /* ===== СТАТТЯ ===== */
-    
+/* ===== ЗАГАЛЬНИЙ КОНТЕЙНЕР ===== */
+
 .article {
     padding: 35px;
 
@@ -48,13 +47,16 @@ body {
         inset 0 0 30px rgba(80, 0, 120, 0.15);
 }
 
-    /* ===== ЗАГОЛОВОК ===== */
+/* ===== 1. ЗАГОЛОВОК ===== */
+
+.header {
+    margin-bottom: 30px;
+}
 
 h1 {
     margin-top: 0;
 
     color: #c15cff;
-
     font-size: 38px;
 
     text-shadow:
@@ -65,21 +67,21 @@ h1 {
 .date {
     color: #8f5aa8;
     font-size: 14px;
-    margin-bottom: 30px;
 }
-    
-/* ===== ТЕКСТ ===== */
-    
-p {
-    line-height: 1.8;
-}
+
+/* ===== 2. ТЕКСТ ===== */
 
 .article-text {
     color: #cda8df;
     font-size: 17px;
 }
 
-/* ===== GLITCH ТЕКСТ ===== */
+.article-text p {
+    line-height: 1.8;
+    margin: 18px 0;
+}
+
+/* ===== GLITCH ===== */
 
 .glitch {
     position: relative;
@@ -165,21 +167,29 @@ p {
     color: #d88cff;
 }
 
-/* ===== ПОСИЛАННЯ ===== */
+/* ===== 3. НАЗАД ===== */
 
-a {
-    color: #ff7de9;
+.back-section {
+    margin-top: 30px;
 }
 
-a:hover {
+.back {
+    display: inline-block;
+
+    color: #ff7de9;
+    text-decoration: none;
+}
+
+.back:hover {
     color: white;
 }
 
-/* ===== КОМЕНТАРІ ===== */
+/* ===== 4. КОМЕНТАРІ ===== */
 
 .comments {
     margin-top: 40px;
     padding-top: 25px;
+
     border-top: 1px solid #57206d;
 }
 
@@ -234,21 +244,6 @@ button:hover {
     color: white;
 
     box-shadow: 0 0 15px #a000ff;
-}
-
-/* ===== НАЗАД ===== */
-
-.back {
-    display: inline-block;
-
-    margin-top: 25px;
-
-    color: #ff7de9;
-    text-decoration: none;
-}
-
-.back:hover {
-    color: white;
 }
 
 /* ===== ТЕЛЕФОН ===== */
@@ -279,245 +274,44 @@ button:hover {
 
     <article class="article">
 
-        <h1>♡ Інструкція,як спалити церкву♡</h1>
+        <!-- ===== 1. ЗАГОЛОВОК ===== -->
 
-        <div class="date">
-            28.08.2026
-        </div>
+        <header class="header">
+
+            <h1>♡ Інструкція,як спалити церкву♡</h1>
+
+            <div class="date">
+                28.08.2026
+            </div>
+
+        </header>
+
+
+        <!-- ===== GLITCH ===== -->
 
         <div class="article-text">
 
-            <p class="glitch" data-text="зв'язок з реальністтю обірванно">
+            <p class="glitch"
+               data-text="зв'язок з реальністтю обірванно">
                 зв'язок з реальністтю обірванно
             </p>
 
         </div>
 
-    </article>
 
-</div>
-
-</body>
-    
-<!DOCTYPE html>
-<html lang="uk">
-
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Інструкція ♡</title>
-
-<style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-
-    background-color: #080008;
-    background-image: url("../background.png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-
-    color: #d9a7ff;
-    font-family: "Courier New", monospace;
-}
-
-/* ===== ОСНОВА ===== */
-
-.site {
-    width: 900px;
-    max-width: 92%;
-    margin: 40px auto;
-}
-
-/* ===== СТАТТЯ ===== */
-
-.article {
-    padding: 35px;
-
-    background: rgba(8, 0, 12, 0.94);
-
-    border: 1px solid #76209d;
-
-    box-shadow:
-        0 0 15px rgba(150, 0, 255, 0.3),
-        inset 0 0 30px rgba(80, 0, 120, 0.15);
-}
-
-/* ===== ЗАГОЛОВОК ===== */
-
-h1 {
-    margin-top: 0;
-
-    color: #c15cff;
-
-    font-size: 38px;
-
-    text-shadow:
-        0 0 5px #b84cff,
-        0 0 15px #8b00ff;
-}
-
-.date {
-    color: #8f5aa8;
-    font-size: 14px;
-    margin-bottom: 30px;
-}
-
-/* ===== ТЕКСТ ===== */
-
-p {
-    line-height: 1.8;
-}
-
-.article-text {
-    color: #cda8df;
-    font-size: 17px;
-}
-
-/* ===== ВАЖЛИВИЙ ТЕКСТ ===== */
-
-.warning {
-    margin: 25px 0;
-    padding: 15px 20px;
-
-    border-left: 3px solid #b84cff;
-
-    background: rgba(100, 0, 120, 0.12);
-
-    color: #d88cff;
-}
-
-/* ===== ПОСИЛАННЯ ===== */
-
-a {
-    color: #ff7de9;
-}
-
-a:hover {
-    color: white;
-}
-
-/* ===== КОМЕНТАРІ ===== */
-
-.comments {
-    margin-top: 40px;
-    padding-top: 25px;
-
-    border-top: 1px solid #57206d;
-}
-
-.comments h2 {
-    color: #c15cff;
-    margin-top: 0;
-}
-
-.comments h2::before {
-    content: "♡ ";
-}
-
-textarea {
-    width: 100%;
-    min-height: 100px;
-
-    resize: vertical;
-
-    padding: 12px;
-
-    background: #100016;
-    color: #d9a7ff;
-
-    border: 1px solid #69209a;
-
-    font-family: "Courier New", monospace;
-}
-
-textarea:focus {
-    outline: none;
-
-    border-color: #b84cff;
-
-    box-shadow:
-        0 0 10px rgba(184, 76, 255, 0.4);
-}
-
-button {
-    margin-top: 10px;
-
-    padding: 10px 20px;
-
-    background: #100016;
-    color: #d88cff;
-
-    border: 1px solid #69209a;
-
-    font-family: "Courier New", monospace;
-
-    cursor: pointer;
-}
-
-button:hover {
-    background: #7511ad;
-    color: white;
-
-    box-shadow: 0 0 15px #a000ff;
-}
-
-/* ===== НАЗАД ===== */
-
-.back {
-    display: inline-block;
-
-    margin-top: 25px;
-
-    color: #ff7de9;
-
-    text-decoration: none;
-}
-
-.back:hover {
-    color: white;
-}
-
-/* ===== ТЕЛЕФОН ===== */
-
-@media (max-width: 700px) {
-
-    .site {
-        max-width: 94%;
-        margin: 20px auto;
-    }
-
-    .article {
-        padding: 22px;
-    }
-
-    h1 {
-        font-size: 28px;
-    }
-
-}
-
-</style>
-</head>
-
-
-<body>
-
-<div class="site">
+        <!-- ===== 2. ОСНОВНИЙ ТЕКСТ ===== -->
 
         <div class="article-text">
 
-    <p>
+            <!-- "Нах церкви!" -->
+            
 
-            Нах церкви!
-    </p>
+            <p>
+                Нах церкви!
+            </p>
+
+            <!-- СЮДИ ВСТАВЛЯЄШ ВЕСЬ ІНШИЙ ТЕКСТ -->
+             </p>
             
 
     <p>
@@ -553,30 +347,28 @@ button:hover {
   
 </p>
 
-
-        </section>
-
-    </article>
-
-</div>
-
-</body>
-</html>
+        </div>
 
 
-        <a href="../tutorials.html" class="back">
-            ← взад тобто...назад :3
-        </a>
+        <!-- ===== 3. НАЗАД ===== -->
+
+        <div class="back-section">
+
+            <a href="../tutorials.html" class="back">
+                ← взад тобто...назад :3
+            </a>
+
+        </div>
 
 
-        <!-- ===== КОМЕНТАРІ ===== -->
+        <!-- ===== 4. КОМЕНТАРІ ===== -->
 
         <section class="comments">
 
             <h2>КОМЕНТАРІ</h2>
 
             <p>
-                Можете залишити тут свої геніальні думки ♡
+              Можете написати, який я псих, але знайте: справжній псих — це той, хто читає. ♡
             </p>
 
             <!-- СЮДИ ПОТІМ GISCUS -->
