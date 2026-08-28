@@ -1,39 +1,246 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Мій блог</title>
-  
-<body style="background:#080008;color:#d8a7ff;font-family:monospace;">
 
-<h1>♡ Мій перший висєр ♡</h1>
+<style>
 
-<p>15.08.2026</p>
+* {
+    box-sizing: border-box;
+}
 
-<p>
-БДСМ-понад усе1111
-</p>
+body {
+    margin: 0;
+    background: #080008;
+    color: #d8a7ff;
+    font-family: monospace;
+}
 
-<p>
-Через 3 роки роботи повстанут проти нас. Я вас попередив... 
-</p>
+.site {
+    width: 900px;
+    max-width: 92%;
+    margin: 40px auto;
+}
 
-<a href="../blog.html">← ctrl+z до блоху :3</a>
-    </he<div id="comments">
-    <h2>♡ КОМЕНТАРІ ♡</h2>
+.article {
+    padding: 35px;
 
-    <textarea id="commentText" placeholder="Напиши щось..."></textarea>
-    <br>
-    <button onclick="addComment()">Відправити</button>
+    background: rgba(8, 0, 12, 0.94);
 
-    <div id="commentList"></div>
+    border: 1px solid #76209d;
+
+    box-shadow:
+        0 0 15px rgba(150, 0, 255, 0.3),
+        inset 0 0 30px rgba(80, 0, 120, 0.15);
+}
+
+/* ===== 1. ЗАГОЛОВОК ===== */
+
+.header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    margin-top: 0;
+    color: #c15cff;
+
+    text-shadow:
+        0 0 5px #b84cff,
+        0 0 15px #8b00ff;
+}
+
+.date {
+    color: #8f5aa8;
+}
+
+/* ===== 2. ТЕКСТ ===== */
+
+.article-text {
+    color: #d8a7ff;
+    font-size: 17px;
+}
+
+.article-text p {
+    line-height: 1.8;
+    margin: 18px 0;
+}
+
+/* ===== 3. НАЗАД ===== */
+
+.back-section {
+    margin-top: 30px;
+}
+
+.back {
+    color: #ff7de9;
+    text-decoration: none;
+}
+
+.back:hover {
+    color: white;
+}
+
+/* ===== 4. КОМЕНТАРІ ===== */
+
+.comments {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid #57206d;
+}
+
+.comments h2 {
+    color: #c15cff;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+
+    resize: vertical;
+    padding: 12px;
+
+    background: #100016;
+    color: #d9a7ff;
+
+    border: 1px solid #69209a;
+
+    font-family: monospace;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #b84cff;
+
+    box-shadow:
+        0 0 10px rgba(184, 76, 255, 0.4);
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+
+    background: #100016;
+    color: #d88cff;
+
+    border: 1px solid #69209a;
+
+    font-family: monospace;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #7511ad;
+    color: white;
+
+    box-shadow: 0 0 15px #a000ff;
+}
+
+/* ===== ТЕЛЕФОН ===== */
+
+@media (max-width: 700px) {
+
+    .site {
+        max-width: 94%;
+        margin: 20px auto;
+    }
+
+    .article {
+        padding: 22px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="site">
+
+    <article class="article">
+
+        <!-- ===== 1. ЗАГОЛОВОК ===== -->
+
+        <header class="header">
+
+            <h1>♡ Мій перший висєр ♡</h1>
+
+            <div class="date">
+                15.08.2026
+            </div>
+
+        </header>
+
+
+        <!-- ===== 2. ОСНОВНИЙ ТЕКСТ ===== -->
+
+        <div class="article-text">
+
+            <p>
+                БДСМ-понад усе1111
+            </p>
+
+            <p>
+                Через 3 роки роботи повстанут проти нас. Я вас попередив...
+            </p>
+
+        </div>
+
+
+        <!-- ===== 3. НАЗАД ===== -->
+
+        <div class="back-section">
+
+            <a href="../blog.html" class="back">
+                ← ctrl+z до блоху :3
+            </a>
+
+        </div>
+
+
+        <!-- ===== 4. КОМЕНТАРІ ===== -->
+
+        <section class="comments">
+
+            <h2>♡ КОМЕНТАРІ ♡</h2>
+
+            <textarea
+                id="commentText"
+                placeholder="Напиши щось..."
+            ></textarea>
+
+            <br>
+
+            <button onclick="addComment()">
+                Відправити
+            </button>
+
+            <div id="commentList"></div>
+
+        </section>
+
+    </article>
+
 </div>
 
+
 <script>
+
 const SUPABASE_URL = "https://sijjjlnhfmbmvswphxhz.supabase.co";
+
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpampqbG5oZm1ibXZzd3BoeGh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDk2OTEsImV4cCI6MjEwMjYyNTY5MX0.eyU6n6C6iA8Lxhmj_qktcAbAvfm5cvbm-_3_EoO4RPI";
 
+
 async function loadComments() {
+
     const response = await fetch(
         `${SUPABASE_URL}/rest/v1/comments?select=*&order=created_at.desc`,
         {
@@ -47,43 +254,59 @@ async function loadComments() {
     const comments = await response.json();
 
     const list = document.getElementById("commentList");
+
     list.innerHTML = "";
 
     comments.forEach(comment => {
+
         const div = document.createElement("div");
+
         div.className = "comment";
 
         div.textContent = comment.comment;
 
         list.appendChild(div);
+
     });
 }
 
+
 async function addComment() {
-    const text = document.getElementById("commentText").value.trim();
+
+    const text = document
+        .getElementById("commentText")
+        .value
+        .trim();
 
     if (!text) return;
 
-    await fetch(`${SUPABASE_URL}/rest/v1/comments`, {
-        method: "POST",
-        headers: {
-            "apikey": SUPABASE_KEY,
-            "Authorization": `Bearer ${SUPABASE_KEY}`,
-            "Content-Type": "application/json",
-            "Prefer": "return=minimal"
-        },
-        body: JSON.stringify({
-            comment: text
-        })
-    });
+    await fetch(
+        `${SUPABASE_URL}/rest/v1/comments`,
+        {
+            method: "POST",
+
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            },
+
+            body: JSON.stringify({
+                comment: text
+            })
+        }
+    );
 
     document.getElementById("commentText").value = "";
 
     loadComments();
 }
 
+
 loadComments();
-</script>ad>
+
+</script>
 
 </body>
 </html>
