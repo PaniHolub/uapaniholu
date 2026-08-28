@@ -1,1 +1,103 @@
-<a href="tutorials.html">ТУТОРІАЛИ</a>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Мій блог</title>
+  
+<body style="background:#520E0E;color:#AB0505;font-family:monospace;">
+
+<h1>♡ Інструкція, як спалити церкву ♡</h1>
+
+<p>28.08.2026</p>
+
+<p>
+Нах церкви!
+</p>
+
+<p>
+Що треба для цього експерименту:
+  1.Бензин
+  2.Труси
+  3.Сірники/запальничка
+  4.Плеєр
+Що треба робити:
+  1.Берете бензин і заправляєте машину
+  2.Дивитися на труси для мотивації
+  3.Якщо з ваших трусів стерчить ниточка підпалюєте її. Тому що трухани це як оберіг
+  їх треба берегти.
+  4.Включаєте завдяки плеєру Britney Spears-Criminal
+  5.Їдете до найближчої кручі і...<span style="font-family: Georgia, serif; font-style: italic; letter-spacing: 3px;">
+    ЦЕНЗУРА
+</span>
+  
+</p>
+
+<a href="../blog.html">← взад тобто...назад :3</a>
+    </he<div id="comments">
+    <h2>♡ КОМЕНТАРІ ♡</h2>
+
+    <textarea id="commentText" placeholder="Напиши щось..."></textarea>
+    <br>
+    <button onclick="addComment()">Відправити</button>
+
+    <div id="commentList"></div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://sijjjlnhfmbmvswphxhz.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpampqbG5oZm1ibXZzd3BoeGh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDk2OTEsImV4cCI6MjEwMjYyNTY5MX0.eyU6n6C6iA8Lxhmj_qktcAbAvfm5cvbm-_3_EoO4RPI";
+
+async function loadComments() {
+    const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/comments?select=*&order=created_at.desc`,
+        {
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`
+            }
+        }
+    );
+
+    const comments = await response.json();
+
+    const list = document.getElementById("commentList");
+    list.innerHTML = "";
+
+    comments.forEach(comment => {
+        const div = document.createElement("div");
+        div.className = "comment";
+
+        div.textContent = comment.comment;
+
+        list.appendChild(div);
+    });
+}
+
+async function addComment() {
+    const text = document.getElementById("commentText").value.trim();
+
+    if (!text) return;
+
+    await fetch(`${SUPABASE_URL}/rest/v1/comments`, {
+        method: "POST",
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+            comment: text
+        })
+    });
+
+    document.getElementById("commentText").value = "";
+
+    loadComments();
+}
+
+loadComments();
+</script>ad>
+
+</body>
+</html>
