@@ -15,20 +15,35 @@
 
 
 /* ===== ФОН ===== */
-
-body {
-    margin: 0;
-    background-color: #080008;
-    background-image: url("background.png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
     
+    body {
+    margin: 0;
+    background: #080008;
     color: #d9a7ff;
     font-family: "Courier New", monospace;
     min-height: 100vh;
 }
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: url("background.png") center / cover no-repeat;
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.site {
+    position: relative;
+    z-index: 1;
+
+    width: 1000px;
+    max-width: 94%;
+    margin: 30px auto;
+}
+
 
 
 /* ===== СЕРЦЕ ===== */
