@@ -46,6 +46,7 @@ style="color:#ff7de9;font-size:20px;">
 <a href="index.html" style="color:#ff7de9;">
 ← назад на головну
 </a>
+
     <!-- ===== СЕКРЕТНА ПАСХАЛКА ===== -->
 
 <video id="secretVideo"
@@ -88,6 +89,10 @@ document.addEventListener("keydown", function(event) {
         video.style.display = "block";
         video.play();
 
+        video.onended = function() {
+            video.style.display = "none";
+        };
+
         input = "";
     }
 
@@ -96,4 +101,5 @@ document.addEventListener("keydown", function(event) {
 </script>
 
 </body>
+   
 </html>
