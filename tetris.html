@@ -671,9 +671,7 @@ function startGame() {
 
     dropInterval = 800;
 
-    document.getElementById(
-        "gameOver"
-    ).style.display = "none";
+    document.getElementById("gameOver").style.display = "none";
 
     updateStats();
 
@@ -681,12 +679,8 @@ function startGame() {
 
     playing = true;
     paused = false;
-    dropCounter = 0;
-
-document.getElementById("pause").style.display = "none";
 
     dropCounter = 0;
-
 }
 
 
@@ -759,25 +753,6 @@ function update(time = 0) {
     requestAnimationFrame(update);
 }
     
-
-    const deltaTime =
-        time - lastTime;
-
-    lastTime = time;
-
-    dropCounter += deltaTime;
-
-    if (dropCounter > dropInterval) {
-
-        playerDrop();
-
-    }
-
-    draw();
-
-    requestAnimationFrame(update);
-
-}
 function togglePause() {
 
     if (!playing) return;
@@ -785,9 +760,7 @@ function togglePause() {
     paused = !paused;
 
     if (paused) {
-        document.getElementById("pause").style.display = "block";
-    } else {
-        document.getElementById("pause").style.display = "none";
+        alert("⏸ ПАУЗА");
     }
 }
 
