@@ -681,6 +681,7 @@ function startGame() {
 
     playing = true;
     paused = false;
+    dropCounter = 0;
 
 document.getElementById("pause").style.display = "none";
 
@@ -740,14 +741,22 @@ document.addEventListener(
 
 function update(time = 0) {
 
-    if (!playing || paused) {
+    const deltaTime = time - lastTime;
+    lastTime = time;
+
+    if (playing && !paused) {
+
+        dropCounter += deltaTime;
+
+        if (dropCounter > dropInterval) {
+            playerDrop();
+        }
+
+    }
 
     draw();
 
     requestAnimationFrame(update);
-
-    return;
-
 }
     
 
