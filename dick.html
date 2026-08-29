@@ -46,6 +46,54 @@ style="color:#ff7de9;font-size:20px;">
 <a href="index.html" style="color:#ff7de9;">
 ← назад на головну
 </a>
+    <!-- ===== СЕКРЕТНА ПАСХАЛКА ===== -->
+
+<video id="secretVideo"
+       src="secret.mp4"
+       style="
+       display:none;
+       position:fixed;
+       top:50%;
+       left:50%;
+       transform:translate(-50%, -50%);
+       width:400px;
+       z-index:9999;
+       ">
+</video>
+
+<script>
+
+let secretCode = "тая";
+let input = "";
+
+document.addEventListener("keydown", function(event) {
+
+    input += event.key.toLowerCase();
+
+    if (input.length > secretCode.length) {
+        input = input.slice(-secretCode.length);
+    }
+
+    if (input === secretCode) {
+
+        alert(
+            "Ти мене добре знаєш.\n\n" +
+            "Звісно, хоч кудись я маю впіхнути своє ім'я.\n\n" +
+            "ОПТІМУС ПРАЙП---ФОР ЕВЕР!"
+        );
+
+        let video = document.getElementById("secretVideo");
+
+        video.currentTime = 0;
+        video.style.display = "block";
+        video.play();
+
+        input = "";
+    }
+
+});
+
+</script>
 
 </body>
 </html>
