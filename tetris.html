@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ТЕРІСОГОН ♡</title>
+
+<link rel="icon" type="image/png" href="images/favico.png">
+
+<style>
+
+* {
+    box-sizing: border-box;
+    cursor: url("./images/cursorLOVE.png") 5 5, auto;
+}
+
+body {
+    margin: 0;
+    background: #080008;
+    color: #d9a7ff;
+    font-family: "Courier New", monospace;
+    min-height: 100vh;
+    text-align: center;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("background.png") center / cover no-repeat;
+    z-index: -1;
+    opacity: 0.35;
+}
+
+h1 {
+    margin: 25px 0 5px;
+    font-size: 55px;
+    color: #b84cff;
+    text-shadow:
+        0 0 5px #b84cff,
+        0 0 15px #8b00ff,
+        0 0 30px #ff00ff;
+}
+
+.subtitle {
+    color: #9b5bc7;
+    margin-bottom: 20px;
+}
+
+.game-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 25px;
+    margin: 20px auto;
+}
+
+.game-box {
+    padding: 15px;
+    border: 1px solid #7b20b5;
+    background: rgba(8, 0, 12, 0.95);
+    box-shadow:
+        0 0 15px rgba(150, 0, 255, 0.4),
+        inset 0 0 25px rgba(80, 0, 120, 0.2);
+}
+
+canvas {
+    display: block;
+    border: 2px solid #7b20b5;
+    background: #050005;
+    box-shadow:
+        0 0 15px #7b20b5,
+        inset 0 0 20px #180020;
+}
+
+.info {
+    width: 180px;
+    padding: 20px;
+    border: 1px solid #6d2094;
+    background: rgba(8, 0, 12, 0.95);
+    box-shadow: 0 0 15px rgba(150, 0, 255, 0.3);
+}
+
+.info h2 {
+    color: #c15cff;
+    margin-top: 0;
+}
+
+.score {
+    font-size: 25px;
+    color: #ff7de9;
+    margin: 15px 0;
+}
+
+button {
+    font-family: "Courier New", monospace;
+    font-size: 16px;
+    color: #d88cff;
+    background: #100016;
+    border: 1px solid #69209a;
+    padding: 10px 15px;
+    margin: 5px;
+}
+
+button:hover {
+    background: #7511ad;
+    color: white;
+    box-shadow: 0 0 15px #a000ff;
+}
+
+.controls {
+    margin-top: 20px;
+    color: #9b5bc7;
+    line-height: 1.8;
+}
+
+.game-over {
+    color: #ff7de9;
+    font-size: 20px;
+    display: none;
+    margin: 15px 0;
+}
+
+.mobile-controls {
+    display: none;
+    margin-top: 15px;
+}
+
+.mobile-controls button {
+    font-size: 22px;
+    min-width: 55px;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 20px;
+    color: #d174ff;
+    text-decoration: none;
+}
+
+.back:hover {
+    color: white;
+}
+
+@media (max-width: 700px) {
+
+    h1 {
+        font-size: 40px;
+    }
+
+    .game-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info {
+        width: 300px;
+    }
+
+    .mobile-controls {
+        display: block;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>♡ НЕ ТЕТРІС НЕ ТРОГАТЬ! ♡</h1>
+
+<div class="subtitle">
+    Real action game — surprised?
+</div>
+
+<div class="game-wrapper">
+
+    <div class="game-box">
+
+        <canvas id="tetris" width="240" height="480"></canvas>
+
+        <div class="mobile-controls">
+            <button onclick="move(-1)">←</button>
+            <button onclick="rotate()">↻</button>
+            <button onclick="move(1)">→</button>
+            <br>
+            <button onclick="drop()">↓</button>
+        </div>
+
+    </div>
+
+    <div class="info">
+
+        <h2>СТАТИСТИКА</h2>
+
+        <div class="score">
+            SCORE<br>
+            <span id="score">0</span>
+        </div>
+
+        <div>
+            LINES<br>
+            <span id="lines">0</span>
+        </div>
+
+        <div>
+            LEVEL<br>
+            <span id="level">1</span>
+        </div>
+
+        <br>
+
+        <button onclick="startGame()">
+            ГОУ
+        </button>
+
+        <div class="game-over" id="gameOver">
+            ХАХА ЛОХ💀
+        </div>
+
+        <div class="controls">
+            ← → рух<br>
+            ↑ обертання<br>
+            ↓ швидше<br>
+            SPACE падіння
+        </div>
+
+    </div>
+
+</div>
+
+<a class="back" href="index.html">
+    ← ВЗАД :3
+</a>
+
+
+<script>
+
+const canvas = document.getElementById("tetris");
+const ctx = canvas.getContext("2d");
+
+const COLS = 10;
+const ROWS = 20;
+const SIZE = 24;
+
+ctx.scale(SIZE, SIZE);
+
+const colors = [
+    null,
+    "#ff4fd8",
+    "#9b5cff",
+    "#4f8cff",
+    "#54d8ff",
+    "#ffcc4f",
+    "#b84cff",
+    "#ff5c8a"
+];
+
+const pieces = [
+    [[1,1,1,1]],
+
+    [
+        [2,2],
+        [2,2]
+    ],
+
+    [
+        [0,3,0],
+        [3,3,3]
+    ],
+
+    [
+        [4,0,0],
+        [4,4,4]
+    ],
+
+    [
+        [0,0,5],
+        [5,5,5]
+    ],
+
+    [
+        [0,6,6],
+        [6,6,0]
+    ],
+
+    [
+        [7,7,0],
+        [0,7,7]
+    ]
+];
+
+let board;
+let player;
+let score = 0;
+let lines = 0;
+let level = 1;
+let dropCounter = 0;
+let dropInterval = 800;
+let lastTime = 0;
+let playing = false;
+
+
+function createBoard() {
+
+    return Array.from(
+        { length: ROWS },
+        () => Array(COLS).fill(0)
+    );
+
+}
+
+
+function randomPiece() {
+
+    const piece =
+        pieces[Math.floor(Math.random() * pieces.length)];
+
+    return piece.map(row => [...row]);
+
+}
+
+
+function newPlayer() {
+
+    player = {
+        matrix: randomPiece(),
+        pos: {
+            x: Math.floor(COLS / 2) - 1,
+            y: 0
+        }
+    };
+
+}
+
+
+function drawMatrix(matrix, offset) {
+
+    matrix.forEach((row, y) => {
+
+        row.forEach((value, x) => {
+
+            if (value !== 0) {
+
+                ctx.fillStyle = colors[value];
+
+                ctx.fillRect(
+                    x + offset.x,
+                    y + offset.y,
+                    1,
+                    1
+                );
+
+                ctx.strokeStyle = "#16001f";
+                ctx.lineWidth = 0.08;
+
+                ctx.strokeRect(
+                    x + offset.x,
+                    y + offset.y,
+                    1,
+                    1
+                );
+
+            }
+
+        });
+
+    });
+
+}
+
+
+function draw() {
+
+    ctx.fillStyle = "#050005";
+
+    ctx.fillRect(
+        0,
+        0,
+        COLS,
+        ROWS
+    );
+
+    drawMatrix(board, {x: 0, y: 0});
+
+    if (player) {
+        drawMatrix(
+            player.matrix,
+            player.pos
+        );
+    }
+
+}
+
+
+function collide(board, player) {
+
+    const matrix = player.matrix;
+    const pos = player.pos;
+
+    for (let y = 0; y < matrix.length; y++) {
+
+        for (let x = 0; x < matrix[y].length; x++) {
+
+            if (
+                matrix[y][x] !== 0 &&
+                (
+                    board[y + pos.y] &&
+                    board[y + pos.y][x + pos.x]
+                ) !== 0
+            ) {
+
+                return true;
+
+            }
+
+        }
+
+    }
+
+    return false;
+
+}
+
+
+function merge(board, player) {
+
+    player.matrix.forEach((row, y) => {
+
+        row.forEach((value, x) => {
+
+            if (value !== 0) {
+
+                board[
+                    y + player.pos.y
+                ][
+                    x + player.pos.x
+                ] = value;
+
+            }
+
+        });
+
+    });
+
+}
+
+
+function playerDrop() {
+
+    player.pos.y++;
+
+    if (collide(board, player)) {
+
+        player.pos.y--;
+
+        merge(board, player);
+
+        clearLines();
+
+        newPlayer();
+
+        if (collide(board, player)) {
+
+            playing = false;
+
+            document.getElementById(
+                "gameOver"
+            ).style.display = "block";
+
+        }
+
+    }
+
+    dropCounter = 0;
+
+}
+
+
+function move(direction) {
+
+    if (!playing) return;
+
+    player.pos.x += direction;
+
+    if (collide(board, player)) {
+
+        player.pos.x -= direction;
+
+    }
+
+}
+
+
+function rotate() {
+
+    if (!playing) return;
+
+    const matrix = player.matrix;
+
+    for (
+        let y = 0;
+        y < matrix.length;
+        y++
+    ) {
+
+        for (
+            let x = 0;
+            x < y;
+            x++
+        ) {
+
+            [
+                matrix[x][y],
+                matrix[y][x]
+            ] =
+            [
+                matrix[y][x],
+                matrix[x][y]
+            ];
+
+        }
+
+    }
+
+    matrix.forEach(row => row.reverse());
+
+    if (collide(board, player)) {
+
+        matrix.forEach(row => row.reverse());
+
+        for (
+            let y = 0;
+            y < matrix.length;
+            y++
+        ) {
+
+            for (
+                let x = 0;
+                x < y;
+                x++
+            ) {
+
+                [
+                    matrix[x][y],
+                    matrix[y][x]
+                ] =
+                [
+                    matrix[y][x],
+                    matrix[x][y]
+                ];
+
+            }
+
+        }
+
+    }
+
+}
+
+
+function drop() {
+
+    if (!playing) return;
+
+    while (!collide(board, player)) {
+
+        player.pos.y++;
+
+    }
+
+    player.pos.y--;
+
+    playerDrop();
+
+}
+
+
+function clearLines() {
+
+    let cleared = 0;
+
+    outer:
+    for (
+        let y = ROWS - 1;
+        y >= 0;
+        y--
+    ) {
+
+        for (
+            let x = 0;
+            x < COLS;
+            x++
+        ) {
+
+            if (board[y][x] === 0) {
+
+                continue outer;
+
+            }
+
+        }
+
+        board.splice(y, 1);
+
+        board.unshift(
+            Array(COLS).fill(0)
+        );
+
+        y++;
+
+        cleared++;
+
+    }
+
+    if (cleared > 0) {
+
+        lines += cleared;
+
+        score +=
+            [0, 100, 300, 500, 800][cleared]
+            * level;
+
+        level =
+            Math.floor(lines / 10) + 1;
+
+        dropInterval =
+            Math.max(
+                100,
+                800 - (level - 1) * 70
+            );
+
+        updateStats();
+
+    }
+
+}
+
+
+function updateStats() {
+
+    document.getElementById(
+        "score"
+    ).textContent = score;
+
+    document.getElementById(
+        "lines"
+    ).textContent = lines;
+
+    document.getElementById(
+        "level"
+    ).textContent = level;
+
+}
+
+
+function startGame() {
+
+    board = createBoard();
+
+    score = 0;
+    lines = 0;
+    level = 1;
+
+    dropInterval = 800;
+
+    document.getElementById(
+        "gameOver"
+    ).style.display = "none";
+
+    updateStats();
+
+    newPlayer();
+
+    playing = true;
+
+    dropCounter = 0;
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (!playing) return;
+
+        if (event.key === "ArrowLeft") {
+
+            move(-1);
+
+        }
+
+        else if (event.key === "ArrowRight") {
+
+            move(1);
+
+        }
+
+        else if (event.key === "ArrowDown") {
+
+            playerDrop();
+
+        }
+
+        else if (event.key === "ArrowUp") {
+
+            rotate();
+
+        }
+
+        else if (event.code === "Space") {
+
+            event.preventDefault();
+
+            drop();
+
+        }
+
+        draw();
+
+    }
+);
+
+
+function update(time = 0) {
+
+    if (!playing) {
+
+        draw();
+
+        requestAnimationFrame(update);
+
+        return;
+
+    }
+
+    const deltaTime =
+        time - lastTime;
+
+    lastTime = time;
+
+    dropCounter += deltaTime;
+
+    if (dropCounter > dropInterval) {
+
+        playerDrop();
+
+    }
+
+    draw();
+
+    requestAnimationFrame(update);
+
+}
+
+
+startGame();
+
+update();
+
+</script>
+
+</body>
+</html>
