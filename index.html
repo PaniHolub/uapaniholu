@@ -2,644 +2,575 @@
 <html lang="uk">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Блядскій сайт ♡</title>
+    <title>Блядскій сайт ♡</title>
 
-<link rel="icon" type="image/png" href="favico.png">
+    <link rel="icon" type="image/png" href="favico.png">
 
-<style>
+    <style>
 
-* {
-    box-sizing: border-box;
-    cursor: url("images/cursorLOVE.png") 5 5, auto;
-}
+        * {
+            box-sizing: border-box;
+            cursor: url("images/cursorLOVE.png") 5 5, auto;
+        }
 
-</style>
+        /* ===== ФОН ===== */
+
+        body {
+            margin: 0;
+            background: #080008;
+            color: #d9a7ff;
+            font-family: "Courier New", monospace;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background: url("background.png") center / cover no-repeat;
+
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== ГОЛОВНИЙ КОНТЕЙНЕР ===== */
+
+        .site {
+            position: relative;
+            z-index: 1;
+
+            width: 1000px;
+            max-width: 94%;
+
+            margin: 30px auto;
+        }
+
+        /* ===== СЕРЦЕ ===== */
+
+        .heart {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+
+            font-size: 50px;
+
+            color: #ff7de9;
+
+            text-shadow:
+                0 0 10px #ff00ff,
+                0 0 25px #ff00ff,
+                0 0 40px #8b00ff;
+
+            z-index: 1000;
+        }
+
+        /* ===== ШАПКА ===== */
+
+        header {
+            text-align: center;
+
+            padding: 35px 10px;
+
+            border: 1px solid #7b20b5;
+
+            background: rgba(8, 0, 8, 0.92);
+
+            box-shadow:
+                0 0 10px #7b20b5,
+                inset 0 0 30px #180020;
+        }
+
+        header h1 {
+            margin: 0;
+
+            font-size: 70px;
+
+            color: #b84cff;
+
+            animation: glow 2s infinite alternate;
+        }
+
+        /* ===== АНІМАЦІЯ ЗАГОЛОВКА ===== */
+
+        @keyframes glow {
+
+            from {
+                text-shadow:
+                    0 0 5px #b84cff,
+                    0 0 10px #8b00ff;
+            }
+
+            to {
+                text-shadow:
+                    0 0 5px #ff7de9,
+                    0 0 30px #ff00ff,
+                    0 0 50px #8b00ff;
+            }
+
+        }
+
+        header p {
+            color: #9b5bc7;
+            letter-spacing: 3px;
+        }
+
+        /* ===== МЕНЮ ===== */
+
+        nav {
+            margin-top: 15px;
+
+            display: flex;
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 5px;
+        }
+
+        nav a {
+            color: #d88cff;
+
+            text-decoration: none;
+
+            padding: 10px 18px;
+
+            border: 1px solid #69209a;
+
+            background: #100016;
+
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            background: #7511ad;
+
+            color: white;
+
+            box-shadow:
+                0 0 15px #a000ff;
+        }
+
+        /* ===== СІТКА ===== */
+
+        .grid {
+            display: grid;
+
+            grid-template-columns: 2fr 1fr;
+
+            gap: 20px;
+        }
+
+        /* ===== БЛОКИ ===== */
+
+        .box {
+            margin-top: 20px;
+
+            padding: 25px;
+
+            border: 1px solid #6d2094;
+
+            background: rgba(8, 0, 12, 0.92);
+
+            box-shadow:
+                0 0 10px rgba(150, 0, 255, 0.25),
+                inset 0 0 25px rgba(80, 0, 120, 0.15);
+        }
+
+        .box h2 {
+            margin-top: 0;
+
+            color: #c15cff;
+        }
+
+        .box h2::before {
+            content: "✦ ";
+        }
+
+        /* ===== ТЕКСТ ===== */
+
+        p {
+            line-height: 1.7;
+        }
+
+        .big {
+            font-size: 20px;
+        }
+
+        .pink {
+            color: #ff7de9;
+        }
+
+        /* ===== ПОСИЛАННЯ ===== */
+
+        a {
+            color: #d174ff;
+        }
+
+        a:hover {
+            color: white;
+        }
+
+        /* ===== ФОТО ===== */
+
+        .box img {
+            max-width: 100%;
+            height: auto;
+
+            display: block;
+
+            margin: 0 auto 15px auto;
+
+            border: 1px solid #6d2094;
+
+            box-shadow:
+                0 0 15px rgba(150, 0, 255, 0.4);
+        }
+
+        /* ===== МУЗИКА ===== */
+
+        .track {
+            margin-top: 15px;
+        }
+
+        .track-name {
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: #ff7de9;
+        }
+
+        .track audio {
+            width: 100%;
+        }
+
+        /* ===== ФУТЕР ===== */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            margin-top: 20px;
+
+            border-top: 1px solid #6d2094;
+
+            color: #75438c;
+
+            background: rgba(8, 0, 12, 0.8);
+        }
+
+        /* ===== ТЕЛЕФОН ===== */
+
+        @media (max-width: 700px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 45px;
+            }
+
+            .heart {
+                font-size: 35px;
+            }
+
+        }
+
+    </style>
 
 </head>
-
-* {
-    box-sizing: border-box;
-}
-
-
-/* ===== ФОН ===== */
-    
-    body {
-    margin: 0;
-    background: #080008;
-    color: #d9a7ff;
-    font-family: "Courier New", monospace;
-    min-height: 100vh;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-
-    background: url("background.png") center / cover no-repeat;
-
-    z-index: 0;
-    pointer-events: none;
-}
-
-.site {
-    position: relative;
-    z-index: 1;
-
-    width: 1000px;
-    max-width: 94%;
-    margin: 30px auto;
-}
-
-
-
-/* ===== СЕРЦЕ ===== */
-
-.heart {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-
-    font-size: 50px;
-
-    color: #ff7de9;
-
-    text-shadow:
-        0 0 10px #ff00ff,
-        0 0 25px #ff00ff,
-        0 0 40px #8b00ff;
-
-    z-index: 1000;
-}
-
-
-/* ===== ГОЛОВНИЙ КОНТЕЙНЕР ===== */
-
-.site {
-    width: 1000px;
-    max-width: 94%;
-
-    margin: 30px auto;
-}
-
-
-/* ===== ШАПКА ===== */
-
-header {
-    text-align: center;
-
-    padding: 35px 10px;
-
-    border: 1px solid #7b20b5;
-
-    background: rgba(8, 0, 8, 0.92);
-
-    box-shadow:
-        0 0 10px #7b20b5,
-        inset 0 0 30px #180020;
-}
-
-
-header h1 {
-    margin: 0;
-
-    font-size: 70px;
-
-    color: #b84cff;
-
-    animation: glow 2s infinite alternate;
-}
-
-
-/* ===== АНІМАЦІЯ ЗАГОЛОВКА ===== */
-
-@keyframes glow {
-
-    from {
-        text-shadow:
-            0 0 5px #b84cff,
-            0 0 10px #8b00ff;
-    }
-
-    to {
-        text-shadow:
-            0 0 5px #ff7de9,
-            0 0 30px #ff00ff,
-            0 0 50px #8b00ff;
-    }
-
-}
-
-
-header p {
-    color: #9b5bc7;
-    letter-spacing: 3px;
-}
-
-
-/* ===== МЕНЮ ===== */
-
-nav {
-    margin-top: 15px;
-
-    display: flex;
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-    gap: 5px;
-}
-
-
-nav a {
-    color: #d88cff;
-
-    text-decoration: none;
-
-    padding: 10px 18px;
-
-    border: 1px solid #69209a;
-
-    background: #100016;
-
-    transition: 0.2s;
-}
-
-
-nav a:hover {
-    background: #7511ad;
-
-    color: white;
-
-    box-shadow:
-        0 0 15px #a000ff;
-}
-
-
-/* ===== СІТКА ===== */
-
-.grid {
-    display: grid;
-
-    grid-template-columns: 2fr 1fr;
-
-    gap: 20px;
-}
-
-
-/* ===== БЛОКИ ===== */
-
-.box {
-    margin-top: 20px;
-
-    padding: 25px;
-
-    border: 1px solid #6d2094;
-
-    background: rgba(8, 0, 12, 0.92);
-
-    box-shadow:
-        0 0 10px rgba(150, 0, 255, 0.25),
-        inset 0 0 25px rgba(80, 0, 120, 0.15);
-}
-
-
-.box h2 {
-    margin-top: 0;
-
-    color: #c15cff;
-}
-
-
-.box h2::before {
-    content: "✦ ";
-}
-
-
-/* ===== ТЕКСТ ===== */
-
-p {
-    line-height: 1.7;
-}
-
-
-.big {
-    font-size: 20px;
-}
-
-
-.pink {
-    color: #ff7de9;
-}
-
-
-/* ===== ПОСИЛАННЯ ===== */
-
-a {
-    color: #d174ff;
-}
-
-
-a:hover {
-    color: white;
-}
-
-
-/* ===== ФОТО ===== */
-
-.box img {
-    max-width: 100%;
-    height: auto;
-
-    display: block;
-
-    margin: 0 auto 15px auto;
-
-    border: 1px solid #6d2094;
-
-    box-shadow:
-        0 0 15px rgba(150, 0, 255, 0.4);
-}
-
-
-/* ===== МУЗИКА ===== */
-
-.track {
-    margin-top: 15px;
-}
-
-
-.track-name {
-    display: block;
-
-    margin-bottom: 10px;
-
-    color: #ff7de9;
-}
-
-
-.track audio {
-    width: 100%;
-}
-
-
-/* ===== ФУТЕР ===== */
-
-footer {
-    text-align: center;
-
-    padding: 30px;
-
-    margin-top: 20px;
-
-    border-top: 1px solid #6d2094;
-
-    color: #75438c;
-
-    background: rgba(8, 0, 12, 0.8);
-}
-
-
-/* ===== ТЕЛЕФОН ===== */
-
-@media (max-width: 700px) {
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    header h1 {
-        font-size: 45px;
-    }
-
-    .heart {
-        font-size: 35px;
-    }
-
-}
-
-</style>
-
-</head>
-
 
 <body>
 
+    <!-- СЕРЦЕ -->
 
-<!-- СЕРЦЕ -->
+    <div class="heart">♡</div>
 
-<div class="heart">♡</div>
 
+    <div class="site">
 
-<div class="site">
+        <!-- ===== ШАПКА ===== -->
 
+        <header>
 
-<!-- ===== ШАПКА ===== -->
+            <h1>Блядскій сайт</h1>
 
-<header>
+            <p>
+                ♡ welcome to my sick and sad website. ♡
+            </p>
 
-    <h1>Блядскій сайт</h1>
+            <nav>
 
-    <p>
-        ♡ welcome to my sick and sad website. ♡
-    </p>
+                <a href="index.html">
+                    ГАЛАВНАЯ
+                </a>
 
+                <a href="blog.html">
+                    БЛОХ
+                </a>
 
-    <nav>
+                <a href="photos.html">
+                    ФОТОЧКІ
+                </a>
 
-        <a href="index.html">
-            ГАЛАВНАЯ
-        </a>
+                <a href="musick.html">
+                    БЛЕКУХА
+                </a>
 
-        <a href="blog.html">
-            БЛОХ
-        </a>
+                <a href="dick.html">
+                    MYDICK
+                </a>
 
-        <a href="photos.html">
-            ФОТОЧКІ
-        </a>
+            </nav>
 
-        <a href="musick.html">
-            БЛЕКУХА
-        </a>
+        </header>
 
-        <a href="dick.html">
-            MYDICK
-        </a>
 
-    </nav>
+        <!-- ===== ОСНОВНИЙ КОНТЕНТ ===== -->
 
-</header>
+        <div class="grid">
 
+            <main>
 
+                <!-- ПЕРШИЙ БЛОК -->
 
-<!-- ===== ОСНОВНИЙ КОНТЕНТ ===== -->
+                <section class="box">
 
-<div class="grid">
+                    <h2>
+                        Вітаю, платіж пройшов успішно111 Хахпххпх
+                    </h2>
 
+                    <p class="big">
+                        Отак з ноги увірватися на мій сайт —
+                        некрасиво! Вийди й зайди обратно,
+                        тільки привітатися не забудь! ♡
+                    </p>
 
-<main>
+                    <p>
+                        тут ви не знайдете нічого цікавого,
+                        можете виходити.
+                    </p>
 
+                    <p class="pink">
+                        <a href="tutorials.html">
+                            Stay a bad guy ♡
+                        </a>
+                    </p>
 
-    <!-- ПЕРШИЙ БЛОК -->
+                </section>
 
-    <section class="box">
 
-        <h2>
-            Вітаю, платіж пройшов успішно111 Хахпххпх
-        </h2>
+                <!-- ОСТАННІЙ ВИСЄР -->
 
-        <p class="big">
-            Отак з ноги увірватися на мій сайт —
-            некрасиво! Вийди й зайди обратно,
-            тільки привітатися не забудь! ♡
-        </p>
+                <section class="box">
 
-        <p>
-            тут ви не знайдете нічого цікавого,
-            можете виходити.
-        </p>
+                    <h2>
+                        Початок кінця
+                    </h2>
 
-      <p class="pink">
-    <a href="tutorials.html">
-        Stay a bad guy ♡
-    </a>
-</p>
-    </section>
+                    <p>
+                        <span class="pink">
+                            14.08.2026
+                        </span>
+                    </p>
 
+                    <p>
+                        Сьогодні день був просто неймовірний:
+                        я нанюхалась таблеток від комарів
+                        і втратила свідомість.
+                    </p>
 
+                    <a href="blog.html">
+                        маю бажання спалити очі →
+                    </a>
 
-    <!-- ОСТАННІЙ ВИСЄР -->
+                </section>
 
-    <section class="box">
 
-        <h2>
-            Початок кінця
-        </h2>
+                <!-- ІНТЕРЕСИ -->
 
-        <p>
-            <span class="pink">
-                14.08.2026
-            </span>
-        </p>
+                <section class="box">
 
-        <p>
-            Сьогодні день був просто неймовірний:
-            я нанюхалась таблеток від комарів
-            і втратила свідомість.
-        </p>
+                    <h2>
+                        Мої інтереси
+                    </h2>
 
-        <a href="blog.html">
-            маю бажання спалити очі →
-        </a>
+                    <p>
 
-    </section>
+                        ♡ музика<br>
 
+                        ♡ малювання<br>
 
+                        ♡ Linux<br>
 
-    <!-- ІНТЕРЕСИ -->
+                        ♡ фотографія<br>
 
-    <section class="box">
+                        ♡ гітара<br>
 
-        <h2>
-            Мої інтереси
-        </h2>
+                        ♡ старий інтернет<br>
 
-        <p>
+                        ♡ чорний гумор —
+                        лан, чот перегнули...
+                        тут не буде жартів
 
-            ♡ музика<br>
+                    </p>
 
-            ♡ малювання<br>
+                </section>
 
-            ♡ Linux<br>
+            </main>
 
-            ♡ фотографія<br>
 
-            ♡ гітара<br>
+            <!-- ===== ПРАВА КОЛОНКА ===== -->
 
-            ♡ старий інтернет<br>
+            <aside>
 
-            ♡ чорний гумор —
-            лан, чот перегнули...
-            тут не буде жартів
+                <!-- ХТОЯ -->
 
-        </p>
+                <section class="box">
 
-    </section>
+                    <h2>
+                        ХТОЯ
+                    </h2>
 
+                    <img
+                        src="myphoto.png"
+                        width="300"
+                        alt="моє фото"
+                    >
 
-</main>
+                    <p>
+                        я — БОХ ♡
+                    </p>
 
+                    <p>
+                        Котрий любить комп'ютери...
+                        ламати... грати в ПК, тобто.
 
+                        Ще обожнює бити головою об стіну
+                        вечорами — так швидше кров до голови
+                        доходить і приходять ще геніальніші
+                        ідеї, як зламати свій кампуктєр.
+                    </p>
 
-<!-- ===== ПРАВА КОЛОНКА ===== -->
+                </section>
 
-<aside>
 
+                <!-- МУЗИКА -->
 
-    <!-- ХТОЯ -->
+                <section class="box">
 
-    <section class="box">
+                    <h2>
+                        Зара слухаю
+                    </h2>
 
-        <h2>
-            ХТОЯ
-        </h2>
+                    <p class="pink">
+                        ♫ music playing ♫
+                    </p>
 
+                    <div class="track">
 
-        <img
-            src="myphoto.png"
-            width="300"
-            alt="моє фото"
-        >
+                        <span class="track-name">
+                            Closer — Nine Inch Nails
+                        </span>
 
+                        <audio controls>
 
-        <p>
-            я — БОХ ♡
-        </p>
+                            <source
+                                src="music/Closer-Nine Inch Nails.mp3"
+                                type="audio/mpeg"
+                            >
 
+                            Ваш браузер не підтримує аудіо.
 
-        <p>
-            Котрий любить комп'ютери...
-            ламати... грати в ПК, тобто.
+                        </audio>
 
-            Ще обожнює бити головою об стіну
-            вечорами — так швидше кров до голови
-            доходить і приходять ще геніальніші
-            ідеї, як зламати свій кампуктєр.
-        </p>
+                    </div>
 
-    </section>
+                </section>
 
 
+                <!-- СТАТУС -->
 
-    <!-- МУЗИКА -->
+                <section class="box">
 
-    <section class="box">
+                    <h2>
+                        Статус
+                    </h2>
 
-        <h2>
-            Зара слухаю
-        </h2>
+                    <p>
+                        ● online
+                    </p>
 
-        <p class="pink">
-            ♫ music playing ♫
-        </p>
+                    <p>
+                        mood: зла як сабака
+                    </p>
 
+                </section>
 
-        <div class="track">
-
-            <span class="track-name">
-                Closer — Nine Inch Nails
-            </span>
-
-
-            <audio controls>
-
-                <source
-                    src="music/Closer-Nine Inch Nails.mp3"
-                    type="audio/mpeg"
-                >
-
-            </audio>
+            </aside>
 
         </div>
 
-    </section>
+
+        <!-- ===== ФУТЕР ===== -->
+
+        <footer>
+
+            ♡ made with hate & love ♡
+            <br>
+
+            © 2026 UAPaniHolub
+
+        </footer>
+
+    </div>
 
 
+    <!-- ===== СЕКРЕТНА ПАСХАЛКА ===== -->
 
-    <!-- СТАТУС -->
+    <script>
 
-    <section class="box">
+        let secretCode = "pani";
+        let input = "";
 
-        <h2>
-            Статус
-        </h2>
+        document.addEventListener("keydown", function(event) {
 
-        <p>
-            ● online
-        </p>
+            input += event.key.toLowerCase();
 
-        <p>
-            mood: зла як сабака
-        </p>
+            if (input.length > secretCode.length) {
+                input = input.slice(-secretCode.length);
+            }
 
-    </section>
+            if (input === secretCode) {
 
+                alert(
+                    "ЯК ТИ ВЗАГАЛІ ДО ЦЬОГО ДОГАДАВСЯ?!\n\n" +
+                    "ЄБАТЬ, Я В АХУЄ.\n\n" +
+                    "ОПТІМУС ПРАЙМ АПЛОДУЄ СТОЯ 👏"
+                );
 
-</aside>
+                input = "";
 
+            }
 
-</div>
+        });
 
-
-
-<!-- ===== ФУТЕР ===== -->
-
-<footer>
-
-    ♡ made with hate & love ♡
-    <br>
-
-    © 2026 UAPaniHolub
-
-</footer>
+    </script>
 
 
-</div>
+    <!-- ===== CLOUDFLARE WEB ANALYTICS ===== -->
 
-
-
-<!-- ===== СЕКРЕТНА ПАСХАЛКА ===== -->
-
-<script>
-
-let secretCode = "pani";
-
-let input = "";
-
-
-document.addEventListener("keydown", function(event) {
-
-    input += event.key.toLowerCase();
-
-
-    if (input.length > secretCode.length) {
-
-        input = input.slice(-secretCode.length);
-
-    }
-
-
-    if (input === secretCode) {
-
-        alert(
-
-            "ЯК ТИ ВЗАГАЛІ ДО ЦЬОГО ДОГАДАВСЯ?!\n\n" +
-
-            "ЄБАТЬ, Я В АХУЄ.\n\n" +
-
-            "ОПТІМУС ПРАЙМ АПЛОДУЄ СТОЯ 👏"
-
-        );
-
-
-        input = "";
-
-    }
-
-});
-    
-<script
-    type="module"
-    src="https://static.cloudflareinsights.com/beacon.min.js"
-    data-cf-beacon='{"token": "<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a2864c945f174c028134c6b7fd118f24"}'></script><!-- End Cloudflare Web Analytics -->"}'>
-</script>
-    
-
+    <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "a2864c945f174c028134c6b7fd118f24"}'>
+    </script>
 
 </body>
 
