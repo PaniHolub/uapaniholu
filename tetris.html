@@ -305,6 +305,7 @@ let dropCounter = 0;
 let dropInterval = 800;
 let lastTime = 0;
 let playing = false;
+let paused = false;
 
 
 function createBoard() {
@@ -679,6 +680,9 @@ function startGame() {
     newPlayer();
 
     playing = true;
+    paused = false;
+
+document.getElementById("pause").style.display = "none";
 
     dropCounter = 0;
 
@@ -689,8 +693,13 @@ document.addEventListener(
     "keydown",
     event => {
 
-        if (!playing) return;
+        if (event.key.toLowerCase() === "p") {
+            togglePause();
+            return;
+        }
 
+        if (!playing || paused) return;
+        
         if (event.key === "ArrowLeft") {
 
             move(-1);
@@ -731,15 +740,16 @@ document.addEventListener(
 
 function update(time = 0) {
 
-    if (!playing) {
+    if (!playing || paused) {
 
-        draw();
+    draw();
 
-        requestAnimationFrame(update);
+    requestAnimationFrame(update);
 
-        return;
+    return;
 
-    }
+}
+    
 
     const deltaTime =
         time - lastTime;
@@ -759,7 +769,18 @@ function update(time = 0) {
     requestAnimationFrame(update);
 
 }
+function togglePause() {
 
+    if (!playing) return;
+
+    paused = !paused;
+
+    if (paused) {
+        document.getElementById("pause").style.display = "block";
+    } else {
+        document.getElementById("pause").style.display = "none";
+    }
+}
 
 startGame();
 
