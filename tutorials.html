@@ -183,6 +183,39 @@ footer {
 
 </div>
 
-</body>
+<!-- ===== СЕКРЕТНА ПАСХАЛКА ===== -->
 
+<audio id="secretSound" src="secret.mp3"></audio>
+
+<script>
+
+let secretCode = "тая";
+let input = "";
+
+document.addEventListener("keydown", function(event) {
+
+    input += event.key.toLowerCase();
+
+    if (input.length > secretCode.length) {
+        input = input.slice(-secretCode.length);
+    }
+
+    if (input === secretCode) {
+
+        alert(
+            "Ти мене добре знаєш.\n\n" +
+            "Звісно, хоч кудись я маю впіхнути своє ім'я.\n\n" +
+            "ОПТІМУС ПРАЙП---ФОР ЕВЕР!"
+        );
+
+        document.getElementById("secretSound").play();
+
+        input = "";
+    }
+
+});
+
+</script>
+
+</body>
 </html>
