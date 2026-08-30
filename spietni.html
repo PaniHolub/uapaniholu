@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-
         * {
             box-sizing: border-box;
         }
@@ -29,6 +28,7 @@
         body {
             margin: 0;
             min-height: 100vh;
+            padding: 30px 15px;
 
             background:
                 radial-gradient(
@@ -40,27 +40,14 @@
 
             color: var(--text);
 
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
-            padding: 30px 15px;
+            font-family: Arial, Helvetica, sans-serif;
         }
-
-        /* =========================
-           ОСНОВНИЙ КОНТЕЙНЕР
-        ========================= */
 
         .container {
             width: 100%;
             max-width: 850px;
             margin: auto;
         }
-
-        /* =========================
-           ЗАГОЛОВОК
-        ========================= */
 
         header {
             text-align: center;
@@ -70,13 +57,14 @@
         h1 {
             margin: 0;
 
-            color: #fff;
+            color: white;
 
             font-size: clamp(32px, 8vw, 65px);
+
             letter-spacing: 8px;
 
             text-shadow:
-                0 0 5px #fff,
+                0 0 5px white,
                 0 0 15px var(--red),
                 0 0 35px var(--red);
 
@@ -87,7 +75,7 @@
 
         h1:hover {
             text-shadow:
-                0 0 8px #fff,
+                0 0 8px white,
                 0 0 25px var(--red2),
                 0 0 60px var(--red2);
         }
@@ -98,7 +86,9 @@
             color: #777;
 
             font-size: 12px;
+
             letter-spacing: 4px;
+
             text-transform: uppercase;
         }
 
@@ -108,6 +98,10 @@
 
         .form {
             position: relative;
+
+            padding: 22px;
+
+            margin-bottom: 30px;
 
             background:
                 linear-gradient(
@@ -120,10 +114,6 @@
 
             border-radius: 12px;
 
-            padding: 22px;
-
-            margin-bottom: 30px;
-
             box-shadow:
                 0 0 25px rgba(180, 0, 0, 0.12);
 
@@ -135,9 +125,9 @@
 
             position: absolute;
 
-            left: 0;
             top: 0;
             bottom: 0;
+            left: 0;
 
             width: 3px;
 
@@ -156,10 +146,6 @@
                 0 0 35px rgba(220, 0, 0, 0.18);
         }
 
-        /* =========================
-           INPUTS
-        ========================= */
-
         input,
         textarea {
             width: 100%;
@@ -169,20 +155,20 @@
             padding: 13px 14px;
 
             border: 1px solid #333;
+
             border-radius: 7px;
 
             outline: none;
 
             background: #090909;
+
             color: #eee;
 
             font-family: inherit;
+
             font-size: 15px;
 
-            transition:
-                border-color 0.2s,
-                box-shadow 0.2s,
-                background 0.2s;
+            transition: 0.2s;
         }
 
         input::placeholder,
@@ -203,12 +189,9 @@
 
         textarea {
             min-height: 130px;
+
             resize: vertical;
         }
-
-        /* =========================
-           FILE INPUT
-        ========================= */
 
         .file-label {
             display: block;
@@ -229,15 +212,16 @@
         }
 
         input[type="file"]::file-selector-button {
-            border: 1px solid #650000;
-
-            border-radius: 6px;
-
             padding: 8px 12px;
 
             margin-right: 10px;
 
+            border: 1px solid #650000;
+
+            border-radius: 6px;
+
             background: #170000;
+
             color: #eee;
 
             cursor: pointer;
@@ -264,6 +248,7 @@
             padding: 10px;
 
             border: 1px solid #3b0000;
+
             border-radius: 8px;
 
             background: #090909;
@@ -274,11 +259,14 @@
             display: block;
 
             width: 100%;
+
             max-height: 450px;
 
             object-fit: contain;
 
             border-radius: 6px;
+
+            background: #050505;
 
             box-shadow:
                 0 0 20px rgba(200, 0, 0, 0.2);
@@ -318,6 +306,7 @@
             color: white;
 
             font-weight: bold;
+
             font-size: 15px;
 
             letter-spacing: 2px;
@@ -326,8 +315,7 @@
 
             text-transform: uppercase;
 
-            transition:
-                0.15s;
+            transition: 0.15s;
         }
 
         #submitBtn:hover {
@@ -352,6 +340,7 @@
 
         #submitBtn:disabled {
             opacity: 0.5;
+
             cursor: not-allowed;
         }
 
@@ -391,12 +380,16 @@
 
         #posts {
             display: flex;
+
             flex-direction: column;
+
             gap: 15px;
         }
 
         .post {
             position: relative;
+
+            padding: 18px;
 
             background:
                 linear-gradient(
@@ -408,8 +401,6 @@
             border: 1px solid #292929;
 
             border-radius: 10px;
-
-            padding: 18px;
 
             transition:
                 border-color 0.2s,
@@ -442,8 +433,6 @@
             transform: translateY(-1px);
         }
 
-        /* КЛІК ПО ПОСТУ */
-
         .post.flash {
             border-color: var(--red2);
 
@@ -462,7 +451,6 @@
         }
 
         @keyframes flashPost {
-
             0% {
                 box-shadow:
                     0 0 0 rgba(255, 0, 0, 0);
@@ -479,14 +467,11 @@
             }
         }
 
-        /* =========================
-           HEADER ПОСТА
-        ========================= */
-
         .post-header {
             display: flex;
 
             justify-content: space-between;
+
             align-items: flex-start;
 
             gap: 15px;
@@ -495,9 +480,10 @@
         }
 
         .nickname {
-            color: #fff;
+            color: white;
 
             font-size: 16px;
+
             font-weight: bold;
 
             text-shadow:
@@ -520,16 +506,13 @@
             white-space: nowrap;
         }
 
-        /* =========================
-           MESSAGE
-        ========================= */
-
         .message {
             color: #ddd;
 
             line-height: 1.55;
 
             white-space: pre-wrap;
+
             word-break: break-word;
         }
 
@@ -546,6 +529,7 @@
             display: block;
 
             width: 100%;
+
             max-height: 600px;
 
             object-fit: contain;
@@ -602,10 +586,6 @@
                 0 0 12px rgba(255, 0, 0, 0.35);
         }
 
-        /* =========================
-           LOADING
-        ========================= */
-
         .loading {
             padding: 30px;
 
@@ -628,12 +608,7 @@
             border-radius: 10px;
         }
 
-        /* =========================
-           MOBILE
-        ========================= */
-
         @media (max-width: 600px) {
-
             body {
                 padding: 20px 10px;
             }
@@ -645,6 +620,7 @@
 
             .post-header {
                 flex-direction: column;
+
                 gap: 5px;
             }
 
@@ -656,10 +632,8 @@
                 letter-spacing: 4px;
             }
         }
-
     </style>
 </head>
-
 
 <body>
 
@@ -669,14 +643,9 @@
         <h1 id="title">СПЛЄТНІ</h1>
 
         <div class="subtitle">
-            скажи те, що не скажеш вголос
+            ну давай розказуй, шо там вже цікавенького XP
         </div>
     </header>
-
-
-    <!-- =========================
-         ФОРМА
-    ========================= -->
 
     <div class="form">
 
@@ -694,7 +663,6 @@
             placeholder="Пиши сюди..."
         ></textarea>
 
-
         <label class="file-label">
             Додати фото, GIF або відео
         </label>
@@ -705,23 +673,15 @@
             accept="image/*,video/*"
         >
 
-
         <div id="preview"></div>
-
 
         <button id="submitBtn">
             Опублікувати
         </button>
 
-
         <div id="status"></div>
 
     </div>
-
-
-    <!-- =========================
-         POSTS
-    ========================= -->
 
     <div id="posts">
 
@@ -733,215 +693,193 @@
 
 </div>
 
-
 <script>
 
-    // ==================================================
-    // SUPABASE
-    // ==================================================
-
-    const SUPABASE_URL =
-        "https://sijjjlnhfmbmvswphxhz.supabase.co";
-
-    const SUPABASE_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpampqbG5oZm1ibXZzd3BoeGh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDk2OTEsImV4cCI6MjEwMjYyNTY5MX0.eyU6n6C6iA8Lxhmj_qktcAbAvfm5cvbm-_3_EoO4RPI";
-
-
-   const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
-
-    // ==================================================
-    // ELEMENTS
-    // ==================================================
-
-    const nicknameInput =
-        document.getElementById("nickname");
-
-    const messageInput =
-        document.getElementById("message");
-
-    const mediaInput =
-        document.getElementById("media");
-
-    const preview =
-        document.getElementById("preview");
-
-    const submitBtn =
-        document.getElementById("submitBtn");
-
-    const status =
-        document.getElementById("status");
-
-    const postsContainer =
-        document.getElementById("posts");
-
-    const title =
-        document.getElementById("title");
-
-
-    // ==================================================
-    // FILE PREVIEW
-    // ==================================================
-
-    mediaInput.addEventListener(
-        "change",
-        function () {
-
-            const file =
-                mediaInput.files[0];
-
-
-            preview.innerHTML = "";
-
-            preview.style.display = "none";
-
-
-            if (!file) {
-                return;
-            }
-
-
-            // Розмір максимум 50 MB
-
-            const maxSize =
-                50 * 1024 * 1024;
-
-
-            if (file.size > maxSize) {
-
-                showStatus(
-                    "Нє, ну ти не перегібай. Максимум 50 MB.",
-                    true
-                );
-
-                mediaInput.value = "";
-
-                return;
-            }
-
-
-            // Ща гляну тип
-
-            if (
-                !file.type.startsWith("image/") &&
-                !file.type.startsWith("video/")
-            ) {
-
-                showStatus(
-                    "Можна завантажувати тільки фото, GIF або відео.",
-                    true
-                );
-
-                mediaInput.value = "";
-
-                return;
-            }
-
-
-            const name =
-                document.createElement("div");
-
-            name.className =
-                "preview-name";
-
-            name.textContent =
-                file.name;
-
-
-            preview.appendChild(name);
-
-
-            const url =
-                URL.createObjectURL(file);
-
-
-            if (file.type.startsWith("video/")) {
-
-                const video =
-                    document.createElement("video");
-
-                video.src = url;
-
-                video.controls = true;
-
-                video.preload = "metadata";
-
-                preview.appendChild(video);
-
-            } else {
-
-                const image =
-                    document.createElement("img");
-
-                image.src = url;
-
-                image.alt = "Preview";
-
-                preview.appendChild(image);
-
-            }
-
-
-            const remove =
-                document.createElement("button");
-
-            remove.type = "button";
-
-            remove.className =
-                "delete-btn";
-
-            remove.textContent =
-                "× Прибрати файл";
-
-
-            remove.addEventListener(
-                "click",
-                function () {
-
-                    mediaInput.value = "";
-
-                    preview.innerHTML = "";
-
-                    preview.style.display = "none";
-
-                    URL.revokeObjectURL(url);
-                }
-            );
-
-
-            preview.appendChild(remove);
-
-            preview.style.display = "block";
-        }
+const SUPABASE_URL =
+    "https://sijjjlnhfmbmvswphxhz.supabase.co";
+
+const SUPABASE_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpampqbG5oZm1ibXZzd3BoeGh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDk2OTEsImV4cCI6MjEwMjYyNTY5MX0.eyU6n6C6iA8Lxhmj_qktcAbAvfm5cvbm-_3_EoO4RPI";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
     );
 
 
-    // ==================================================
-    // STATUS
-    // ==================================================
+/* =========================
+   ELEMENTS
+========================= */
 
-    function showStatus(text, error = false) {
+const nicknameInput =
+    document.getElementById("nickname");
 
-        status.textContent = text;
+const messageInput =
+    document.getElementById("message");
 
-        status.className =
-            error ? "error" : "success";
+const mediaInput =
+    document.getElementById("media");
+
+const preview =
+    document.getElementById("preview");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const status =
+    document.getElementById("status");
+
+const postsContainer =
+    document.getElementById("posts");
+
+const title =
+    document.getElementById("title");
+
+
+/* =========================
+   STATUS
+========================= */
+
+function showStatus(text, error = false) {
+
+    status.textContent = text;
+
+    status.className =
+        error ? "error" : "success";
+}
+
+
+/* =========================
+   FILE PREVIEW
+========================= */
+
+mediaInput.addEventListener(
+    "change",
+    function () {
+
+        const file =
+            mediaInput.files[0];
+
+        preview.innerHTML = "";
+
+        preview.style.display = "none";
+
+        if (!file) {
+            return;
+        }
+
+        const maxSize =
+            50 * 1024 * 1024;
+
+        if (file.size > maxSize) {
+
+            showStatus(
+                "Максимальний розмір файлу — 50 MB.",
+                true
+            );
+
+            mediaInput.value = "";
+
+            return;
+        }
+
+        if (
+            !file.type.startsWith("image/") &&
+            !file.type.startsWith("video/")
+        ) {
+
+            showStatus(
+                "Можна завантажувати тільки фото, GIF або відео.",
+                true
+            );
+
+            mediaInput.value = "";
+
+            return;
+        }
+
+        const name =
+            document.createElement("div");
+
+        name.className =
+            "preview-name";
+
+        name.textContent =
+            file.name;
+
+        preview.appendChild(name);
+
+        const url =
+            URL.createObjectURL(file);
+
+        if (file.type.startsWith("video/")) {
+
+            const video =
+                document.createElement("video");
+
+            video.src = url;
+
+            video.controls = true;
+
+            video.preload = "metadata";
+
+            preview.appendChild(video);
+
+        } else {
+
+            const image =
+                document.createElement("img");
+
+            image.src = url;
+
+            image.alt = "Preview";
+
+            preview.appendChild(image);
+        }
+
+        const remove =
+            document.createElement("button");
+
+        remove.type = "button";
+
+        remove.className =
+            "delete-btn";
+
+        remove.textContent =
+            "× Прибрати файл";
+
+        remove.addEventListener(
+            "click",
+            function () {
+
+                mediaInput.value = "";
+
+                preview.innerHTML = "";
+
+                preview.style.display = "none";
+
+                URL.revokeObjectURL(url);
+            }
+        );
+
+        preview.appendChild(remove);
+
+        preview.style.display = "block";
     }
+);
 
 
-    // ==================================================
-    // LOAD POSTS
-    // ==================================================
+/* =========================
+   LOAD POSTS
+========================= */
 
-   async function loadPosts() {
+async function loadPosts() {
 
     postsContainer.innerHTML =
         '<div class="loading">ЗАВАНТАЖЕННЯ...</div>';
 
-    const { data, error } =
+    const result =
         await supabaseClient
             .from("posts")
             .select("*")
@@ -949,11 +887,21 @@
                 ascending: false
             });
 
+    const data =
+        result.data;
+
+    const error =
+        result.error;
+
     if (error) {
-        console.error("LOAD POSTS ERROR:", error);
+
+        console.error(
+            "LOAD POSTS ERROR:",
+            error
+        );
 
         postsContainer.innerHTML =
-            '<div class="empty">ДА БЛІІІІН...</div>';
+            '<div class="empty">Не вдалося завантажити сплетні 😭</div>';
 
         return;
     }
@@ -961,610 +909,612 @@
     postsContainer.innerHTML = "";
 
     if (!data || data.length === 0) {
+
         postsContainer.innerHTML =
-            '<div class="empty">Тут поки тіха...</div>';
+            '<div class="empty">Тут поки тихо...</div>';
 
         return;
     }
 
-    for (const post of data) {
+    data.forEach(function(post) {
 
-        const element = createPost(post);
+        const element =
+            renderPost(post);
 
-        // Перевіряємо, що це справді HTML-елемент
-        if (element instanceof Node) {
-            postsContainer.appendChild(element);
+        postsContainer.appendChild(element);
+
+    });
+}
+
+
+/* =========================
+   RENDER POST
+========================= */
+
+function renderPost(post) {
+
+    const article =
+        document.createElement("article");
+
+    article.className =
+        "post";
+
+
+    /* HEADER */
+
+    const header =
+        document.createElement("div");
+
+    header.className =
+        "post-header";
+
+
+    const nickname =
+        document.createElement("div");
+
+    nickname.className =
+        "nickname";
+
+    nickname.textContent =
+        post.nickname;
+
+
+    const date =
+        document.createElement("div");
+
+    date.className =
+        "date";
+
+    date.textContent =
+        formatDate(
+            post.created_at
+        );
+
+
+    header.appendChild(nickname);
+
+    header.appendChild(date);
+
+    article.appendChild(header);
+
+
+    /* MESSAGE */
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message";
+
+    message.textContent =
+        post.message;
+
+    article.appendChild(message);
+
+
+    /* MEDIA */
+
+    if (post.media_url) {
+
+        const media =
+            document.createElement("div");
+
+        media.className =
+            "media";
+
+
+        if (
+            post.media_type &&
+            post.media_type.startsWith("video/")
+        ) {
+
+            const video =
+                document.createElement("video");
+
+            video.src =
+                post.media_url;
+
+            video.controls = true;
+
+            video.preload = "metadata";
+
+            media.appendChild(video);
+
         } else {
-            console.error(
-                "createPost() повернув не HTML-елемент:",
-                element
+
+            const image =
+                document.createElement("img");
+
+            image.src =
+                post.media_url;
+
+            image.alt =
+                "Медіа";
+
+            image.loading =
+                "lazy";
+
+            media.appendChild(image);
+        }
+
+        article.appendChild(media);
+    }
+
+
+    /* DELETE */
+
+    const deleteBtn =
+        document.createElement("button");
+
+    deleteBtn.className =
+        "delete-btn";
+
+    deleteBtn.textContent =
+        "🗑 НАХ!";
+
+
+    deleteBtn.addEventListener(
+        "click",
+        async function(event) {
+
+            event.stopPropagation();
+
+            await deletePost(post);
+        }
+    );
+
+
+    article.appendChild(deleteBtn);
+
+
+    /* GLOW */
+
+    article.addEventListener(
+        "click",
+        function() {
+
+            article.classList.remove(
+                "flash"
+            );
+
+            void article.offsetWidth;
+
+            article.classList.add(
+                "flash"
             );
         }
+    );
+
+
+    return article;
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(dateString) {
+
+    const date =
+        new Date(dateString);
+
+    return date.toLocaleString(
+        "uk-UA",
+        {
+            day: "2-digit",
+
+            month: "2-digit",
+
+            year: "numeric",
+
+            hour: "2-digit",
+
+            minute: "2-digit"
+        }
+    );
+}
+
+
+/* =========================
+   UPLOAD MEDIA
+========================= */
+
+async function uploadMedia(file) {
+
+    const extension =
+        file.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    const fileName =
+        Date.now()
+        + "-"
+        + crypto.randomUUID()
+        + "."
+        + extension;
+
+
+    const filePath =
+        "posts/" + fileName;
+
+
+    const uploadResult =
+        await supabaseClient
+            .storage
+            .from("forum-media")
+            .upload(
+                filePath,
+                file,
+                {
+                    cacheControl: "3600",
+
+                    upsert: false,
+
+                    contentType: file.type
+                }
+            );
+
+
+    if (uploadResult.error) {
+
+        console.error(
+            "UPLOAD ERROR:",
+            uploadResult.error
+        );
+
+        throw new Error(
+            uploadResult.error.message
+        );
+    }
+
+
+    const publicResult =
+        supabaseClient
+            .storage
+            .from("forum-media")
+            .getPublicUrl(
+                filePath
+            );
+
+
+    return {
+        url:
+            publicResult.data.publicUrl,
+
+        path:
+            filePath
+    };
+}
+
+
+/* =========================
+   CREATE POST
+========================= */
+
+async function publishPost() {
+
+    const nickname =
+        nicknameInput.value.trim();
+
+    const message =
+        messageInput.value.trim();
+
+    const file =
+        mediaInput.files[0];
+
+
+    /* NICKNAME */
+
+    if (
+        nickname.length < 1 ||
+        nickname.length > 40
+    ) {
+
+        showStatus(
+            "Нік має містити від 1 до 40 символів.",
+            true
+        );
+
+        nicknameInput.focus();
+
+        return;
+    }
+
+
+    /* MESSAGE */
+
+    if (message.length < 1) {
+
+        showStatus(
+            "Ну шо, розказуй.",
+            true
+        );
+
+        messageInput.focus();
+
+        return;
+    }
+
+
+    if (message.length > 5000) {
+
+        showStatus(
+            "Максимум 5000 символів.",
+            true
+        );
+
+        return;
+    }
+
+
+    submitBtn.disabled = true;
+
+
+    let uploadedFile = null;
+
+
+    try {
+
+        /* UPLOAD */
+
+        if (file) {
+
+            showStatus(
+                "Грузіт медіа..."
+            );
+
+            uploadedFile =
+                await uploadMedia(file);
+        }
+
+
+        /* DATABASE */
+
+        showStatus(
+            "Публікую..."
+        );
+
+
+        const insertResult =
+            await supabaseClient
+                .from("posts")
+                .insert({
+                    nickname:
+                        nickname,
+
+                    message:
+                        message,
+
+                    media_url:
+                        uploadedFile
+                            ? uploadedFile.url
+                            : null,
+
+                    media_type:
+                        file
+                            ? file.type
+                            : null
+                });
+
+
+        if (insertResult.error) {
+
+            console.error(
+                "POST ERROR:",
+                insertResult.error
+            );
+
+
+            /* Якщо файл завантажився,
+               але пост не створився */
+
+            if (uploadedFile) {
+
+                await supabaseClient
+                    .storage
+                    .from("forum-media")
+                    .remove([
+                        uploadedFile.path
+                    ]);
+            }
+
+
+            throw new Error(
+                insertResult.error.message
+            );
+        }
+
+
+        /* CLEAR */
+
+        nicknameInput.value = "";
+
+        messageInput.value = "";
+
+        mediaInput.value = "";
+
+        preview.innerHTML = "";
+
+        preview.style.display = "none";
+
+
+        showStatus(
+            "Опубліковано 🩸"
+        );
+
+
+        await loadPosts();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "CREATE POST ERROR:",
+            error
+        );
+
+        showStatus(
+            "Ашибка: " +
+            error.message,
+            true
+        );
+
+    }
+
+    finally {
+
+        submitBtn.disabled = false;
     }
 }
 
 
-    // ==================================================
-    // CREATE POST
-    // ==================================================
+/* =========================
+   DELETE POST
+========================= */
 
-    function createPost(post) {
+async function deletePost(post) {
 
-        const article =
-            document.createElement("article");
-
-        article.className = "post";
-
-
-        // HEADER
-
-        const header =
-            document.createElement("div");
-
-        header.className =
-            "post-header";
+    const confirmed =
+        confirm(
+            "Унічтожить цей пост?"
+        );
 
 
-        const nickname =
-            document.createElement("div");
-
-        nickname.className =
-            "nickname";
-
-        nickname.textContent =
-            post.nickname;
+    if (!confirmed) {
+        return;
+    }
 
 
-        const date =
-            document.createElement("div");
+    try {
 
-        date.className =
-            "date";
-
-        date.textContent =
-            formatDate(post.created_at);
-
-
-        header.appendChild(nickname);
-        header.appendChild(date);
-
-
-        // MESSAGE
-
-        const message =
-            document.createElement("div");
-
-        message.className =
-            "message";
-
-        message.textContent =
-            post.message;
-
-
-        article.appendChild(header);
-
-        article.appendChild(message);
-
-
-        // MEDIA
+        /* DELETE MEDIA */
 
         if (post.media_url) {
 
-            const media =
-                document.createElement("div");
-
-            media.className =
-                "media";
+            const marker =
+                "/forum-media/";
 
 
-            if (
-                post.media_type &&
-                post.media_type.startsWith("video/")
-            ) {
-
-                const video =
-                    document.createElement("video");
-
-                video.src =
-                    post.media_url;
-
-                video.controls = true;
-
-                video.preload =
-                    "metadata";
-
-                media.appendChild(video);
-
-            } else {
-
-                const image =
-                    document.createElement("img");
-
-                image.src =
-                    post.media_url;
-
-                image.alt =
-                    "Медіа";
-
-                image.loading =
-                    "lazy";
-
-                media.appendChild(image);
-            }
-
-
-            article.appendChild(media);
-        }
-
-
-        // DELETE BUTTON
-
-        const deleteBtn =
-            document.createElement("button");
-
-        deleteBtn.className =
-            "delete-btn";
-
-        deleteBtn.textContent =
-            "🗑 НАХ!";
-
-
-        deleteBtn.addEventListener(
-            "click",
-            async function (event) {
-
-                event.stopPropagation();
-
-                await deletePost(post);
-            }
-        );
-
-
-        article.appendChild(deleteBtn);
-
-
-        // CLICK GLOW
-
-        article.addEventListener(
-            "click",
-            function () {
-
-                article.classList.remove("flash");
-
-                void article.offsetWidth;
-
-                article.classList.add("flash");
-
-            }
-        );
-
-
-        return article;
-    }
-
-
-    // ==================================================
-    // DATE
-    // ==================================================
-
-    function formatDate(dateString) {
-
-        const date =
-            new Date(dateString);
-
-
-        return date.toLocaleString(
-            "uk-UA",
-            {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-
-                hour: "2-digit",
-                minute: "2-digit"
-            }
-        );
-    }
-
-
-    // ==================================================
-    // UPLOAD FILE
-    // ==================================================
-
-    async function uploadMedia(file) {
-
-        const extension =
-            file.name
-                .split(".")
-                .pop()
-                .toLowerCase();
-
-
-        const fileName =
-            Date.now()
-            + "-"
-            + crypto.randomUUID()
-            + "."
-            + extension;
-
-
-        const filePath =
-            "posts/" + fileName;
-
-
-        const { error } =
-            await supabaseClient
-                .storage
-                .from("forum-media")
-                .upload(
-                    filePath,
-                    file,
-                    {
-                        cacheControl: "3600",
-                        upsert: false,
-                        contentType: file.type
-                    }
+            const index =
+                post.media_url.indexOf(
+                    marker
                 );
 
 
-        if (error) {
+            if (index !== -1) {
 
-            console.error(
-                "UPLOAD ERROR:",
-                error
-            );
-
-            throw new Error(
-                "Нє палучілось...: "
-                + error.message
-            );
-        }
+                const filePath =
+                    post.media_url.substring(
+                        index + marker.length
+                    );
 
 
-        const { data } =
-            supabaseClient
-                .storage
-                .from("forum-media")
-                .getPublicUrl(filePath);
-
-
-        return {
-            url: data.publicUrl,
-            path: filePath
-        };
-    }
-
-
-    // ==================================================
-    // CREATE POST
-    // ==================================================
-
-    async function createPost() {
-
-        const nickname =
-            nicknameInput.value.trim();
-
-        const message =
-            messageInput.value.trim();
-
-        const file =
-            mediaInput.files[0];
-
-
-        // NICKNAME
-
-        if (
-            nickname.length < 1 ||
-            nickname.length > 40
-        ) {
-
-            showStatus(
-                "Нік має містити від 1 до 40 символів.",
-                true
-            );
-
-            nicknameInput.focus();
-
-            return;
-        }
-
-
-        // MESSAGE
-
-        if (message.length < 1) {
-
-            showStatus(
-                "Ну шо, розказуй",
-                true
-            );
-
-            messageInput.focus();
-
-            return;
-        }
-
-
-        if (message.length > 5000) {
-
-            showStatus(
-                "Ну ти поет, харе писать.",
-                true
-            );
-
-            return;
-        }
-
-
-        submitBtn.disabled = true;
-
-        showStatus(
-            "Щас всє заценят..."
-        );
-
-
-        let uploadedFile = null;
-
-
-        try {
-
-            // UPLOAD MEDIA
-
-            if (file) {
-
-                showStatus(
-                    "Грузіт медіа..."
-                );
-
-
-                uploadedFile =
-                    await uploadMedia(file);
-            }
-
-
-            // INSERT POST
-
-            showStatus(
-                "САСІТЄ пост..."
-            );
-
-
-            const { error } =
-                await supabaseClient
-                    .from("posts")
-                    .insert({
-
-                        nickname:
-                            nickname,
-
-                        message:
-                            message,
-
-                        media_url:
-                            uploadedFile
-                                ? uploadedFile.url
-                                : null,
-
-                        media_type:
-                            file
-                                ? file.type
-                                : null
-                    });
-
-
-            if (error) {
-
-                console.error(
-                    "POST ERROR:",
-                    error
-                );
-
-
-                // Якщо пост не створився,
-                // але файл вже завантажився —
-                // пробуємо прибрати файл
-
-                if (uploadedFile) {
-
+                const result =
                     await supabaseClient
                         .storage
                         .from("forum-media")
                         .remove([
-                            uploadedFile.path
+                            filePath
                         ]);
+
+
+                if (result.error) {
+
+                    console.warn(
+                        "MEDIA DELETE ERROR:",
+                        result.error
+                    );
                 }
+            }
+        }
 
 
-                throw new Error(
-                    error.message
+        /* DELETE POST */
+
+        const result =
+            await supabaseClient
+                .from("posts")
+                .delete()
+                .eq(
+                    "id",
+                    post.id
                 );
-            }
 
 
-            // CLEAR
+        if (result.error) {
 
-            nicknameInput.value = "";
-
-            messageInput.value = "";
-
-            mediaInput.value = "";
-
-            preview.innerHTML = "";
-
-            preview.style.display = "none";
-
-
-            showStatus(
-                "Уффф! Пєсня 🩸"
-            );
-
-
-            await loadPosts();
-
-
-        } catch (error) {
-
-            console.error(error);
-
-
-            showStatus(
-                "Ашибка: " +
-                error.message,
-                true
-            );
-
-
-        } finally {
-
-            submitBtn.disabled = false;
+            throw result.error;
         }
+
+
+        await loadPosts();
+
     }
 
+    catch (error) {
 
-    // ==================================================
-    // DELETE POST
-    // ==================================================
+        console.error(
+            "DELETE ERROR:",
+            error
+        );
 
-    async function deletePost(post) {
-
-        const confirmed =
-            confirm(
-                "Унічтожить цей пост?"
-            );
-
-
-        if (!confirmed) {
-            return;
-        }
-
-
-        try {
-
-            /*
-             * Спочатку видаляємо файл.
-             *
-             * У media_url зберігається
-             * повний URL, тому дістаємо
-             * шлях після /forum-media/
-             */
-
-            if (post.media_url) {
-
-                const marker =
-                    "/forum-media/";
-
-
-                const index =
-                    post.media_url.indexOf(
-                        marker
-                    );
-
-
-                if (index !== -1) {
-
-                    const filePath =
-                        post.media_url
-                            .substring(
-                                index + marker.length
-                            );
-
-
-                    const { error: fileError } =
-                        await supabaseClient
-                            .storage
-                            .from("forum-media")
-                            .remove([
-                                filePath
-                            ]);
-
-
-                    if (fileError) {
-
-                        console.warn(
-                            "Нє палучілось видалити файл:",
-                            fileError
-                        );
-                    }
-                }
-            }
-
-
-            // DELETE POST
-
-            const { error } =
-                await supabaseClient
-                    .from("posts")
-                    .delete()
-                    .eq(
-                        "id",
-                        post.id
-                    );
-
-
-            if (error) {
-
-                throw error;
-            }
-
-
-            await loadPosts();
-
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert(
-                "Нє палучілось видалити пост: "
-                + error.message
-            );
-        }
+        alert(
+            "Нє палучілось видалити пост: "
+            + error.message
+        );
     }
+}
 
 
-    // ==================================================
-    // BUTTON
-    // ==================================================
+/* =========================
+   BUTTON
+========================= */
 
-    submitBtn.addEventListener(
-        "click",
-        createPost
-    );
-
-
-    // ==================================================
-    // TITLE CLICK
-    // ==================================================
-
-    title.addEventListener(
-        "click",
-        function () {
-
-            title.style.textShadow =
-                `
-                0 0 5px white,
-                0 0 20px red,
-                0 0 40px red,
-                0 0 80px red
-                `;
+submitBtn.addEventListener(
+    "click",
+    publishPost
+);
 
 
-            setTimeout(
-                function () {
+/* =========================
+   TITLE
+========================= */
 
-                    title.style.textShadow = "";
+title.addEventListener(
+    "click",
+    function() {
 
-                },
-                500
-            );
-        }
-    );
+        title.style.textShadow =
+            `
+            0 0 5px white,
+            0 0 20px red,
+            0 0 40px red,
+            0 0 80px red
+            `;
 
 
-    // ==================================================
-    // START
-    // ==================================================
+        setTimeout(
+            function() {
 
-    loadPosts();
+                title.style.textShadow =
+                    "";
+
+            },
+            500
+        );
+    }
+);
+
+
+/* =========================
+   START
+========================= */
+
+loadPosts();
 
 </script>
 
