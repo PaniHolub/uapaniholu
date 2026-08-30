@@ -747,11 +747,10 @@
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpampqbG5oZm1ibXZzd3BoeGh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDk2OTEsImV4cCI6MjEwMjYyNTY5MX0.eyU6n6C6iA8Lxhmj_qktcAbAvfm5cvbm-_3_EoO4RPI";
 
 
-    const supabaseClient =
-        supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-        );
+   const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
 
     // ==================================================
