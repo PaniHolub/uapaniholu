@@ -936,63 +936,52 @@
     // LOAD POSTS
     // ==================================================
 
-    async function loadPosts() {
+   async function loadPosts() {
+
+    postsContainer.innerHTML =
+        '<div class="loading">ЗАВАНТАЖЕННЯ...</div>';
+
+    const { data, error } =
+        await supabaseClient
+            .from("posts")
+            .select("*")
+            .order("created_at", {
+                ascending: false
+            });
+
+    if (error) {
+        console.error("LOAD POSTS ERROR:", error);
 
         postsContainer.innerHTML =
-            '<div class="loading">ЗАВАНТАЖЕННЯ...</div>';
+            '<div class="empty">ДА БЛІІІІН...</div>';
 
-
-        const { data, error } =
-            await supabaseClient
-                .from("posts")
-                .select("*")
-                .order(
-                    "created_at",
-                    {
-                        ascending: false
-                    }
-                );
-
-
-        if (error) {
-
-            console.error(error);
-
-            postsContainer.innerHTML =
-                `
-                <div class="empty">
-                    Та блііін...
-                </div>
-                `;
-
-            return;
-        }
-
-
-        postsContainer.innerHTML = "";
-
-
-        if (!data || data.length === 0) {
-
-            postsContainer.innerHTML =
-                `
-                <div class="empty">
-                    Тут тіха, хах, як в могилі...
-                </div>
-                `;
-
-            return;
-        }
-
-
-        data.forEach(post => {
-
-            const element =
-                createPost(post);
-
-            postsContainer.appendChild(element);
-        });
+        return;
     }
+
+    postsContainer.innerHTML = "";
+
+    if (!data || data.length === 0) {
+        postsContainer.innerHTML =
+            '<div class="empty">Тут поки тіха...</div>';
+
+        return;
+    }
+
+    for (const post of data) {
+
+        const element = createPost(post);
+
+        // Перевіряємо, що це справді HTML-елемент
+        if (element instanceof Node) {
+            postsContainer.appendChild(element);
+        } else {
+            console.error(
+                "createPost() повернув не HTML-елемент:",
+                element
+            );
+        }
+    }
+}
 
 
     // ==================================================
