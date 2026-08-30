@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Сплєтні</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            background: #111;
+            color: #eee;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form {
+            background: #1c1c1c;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+
+            background: #111;
+            color: #eee;
+
+            border: 1px solid #444;
+            border-radius: 8px;
+
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #eee;
+            color: #111;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ccc;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #status {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .post {
+            background: #1c1c1c;
+            border: 1px solid #333;
+            border-radius: 12px;
+
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+
+            margin-bottom: 12px;
+        }
+
+        .nickname {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .date {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .message {
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .media {
+            margin-top: 15px;
+            max-width: 100%;
+        }
+
+        .media img,
+        .media video {
+            display: block;
+
+            max-width: 100%;
+            max-height: 600px;
+
+            border-radius: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1> Сплєтні :3</h1>
+
+    <div class="form">
+
+        <input
+            type="text"
+            id="nickname"
+            placeholder="Твій нік"
+            maxlength="40"
+        >
+
+        <textarea
+            id="message"
+            placeholder="Що хочеш сказати?"
+            maxlength="5000"
+        ></textarea>
+
+        <input
+            type="file"
+            id="media"
+            accept="image/*,video/*"
+        >
+
+        <button id="submitBtn">
+            Опублікувати
+        </button>
+
+        <div id="status"></div>
+
+    </div>
+
+    <div id="posts">
+        <div class="loading">Ща..ща всьо будєт...</div>
+    </div>
+
+</div>
+
+
+<script>
+
+    // ==========================================
+    // SUPABASE
+    // ==========================================
+
+    const SUPABASE_URL =
+        "https://sijjjlnhfmbmvswphxhz.supabase.co";
+
+    const SUPABASE_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpampqbG5oZm1ibXZzd3BoeGh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDk2OTEsImV4cCI6MjEwMjYyNTY5MX0.eyU6n6C6iA8Lxhmj_qktcAbAvfm5cvbm-_3_EoO4RPI";
+
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    // ==========================================
+    // ELEMENTS
+    // ==========================================
+
+    const nicknameInput =
+        document.getElementById("nickname");
+
+    const messageInput =
+        document.getElementById("message");
+
+    const mediaInput =
+        document.getElementById("media");
+
+    const submitBtn =
+        document.getElementById("submitBtn");
+
+    const status =
+        document.getElementById("status");
+
+    const postsContainer =
+        document.getElementById("posts");
+
+
+    // ==========================================
+    // LOAD POSTS
+    // ==========================================
+
+    async function loadPosts() {
+
+        postsContainer.innerHTML =
+            '<div class="loading">Завантаження...</div>';
+
+        const { data, error } =
+            await supabaseClient
+                .from("posts")
+                .select("*")
+                .order("created_at", {
+                    ascending: false
+                });
+
+
+        if (error) {
+
+            console.error(error);
+
+            postsContainer.innerHTML =
+                "<p>Не вдалося завантажити пости -_-</p>";
+
+            return;
+        }
+
+
+        postsContainer.innerHTML = "";
+
+
+        if (!data || data.length === 0) {
+
+            postsContainer.innerHTML =
+                '<div class="loading">Поки тут тихо 👀</div>';
+
+            return;
+        }
+
+
+        data.forEach(post => {
+
+            const postElement =
+                createPostElement(post);
+
+            postsContainer.appendChild(
+                postElement
+            );
+
+        });
+
+    }
+
+
+    // ==========================================
+    // CREATE POST ELEMENT
+    // ==========================================
+
+    function createPostElement(post) {
+
+        const article =
+            document.createElement("article");
+
+        article.className = "post";
+
+
+        // HEADER
+
+        const header =
+            document.createElement("div");
+
+        header.className = "post-header";
+
+
+        const nickname =
+            document.createElement("div");
+
+        nickname.className = "nickname";
+
+        nickname.textContent =
+            post.nickname;
+
+
+        const date =
+            document.createElement("div");
+
+        date.className = "date";
+
+        date.textContent =
+            formatDate(post.created_at);
+
+
+        header.appendChild(nickname);
+        header.appendChild(date);
+
+
+        // MESSAGE
+
+        const message =
+            document.createElement("div");
+
+        message.className = "message";
+
+        message.textContent =
+            post.message;
+
+
+        article.appendChild(header);
+        article.appendChild(message);
+
+
+        // MEDIA
+
+        if (post.media_url) {
+
+            const mediaContainer =
+                document.createElement("div");
+
+            mediaContainer.className =
+                "media";
+
+
+            if (
+                post.media_type &&
+                post.media_type.startsWith("video/")
+            ) {
+
+                const video =
+                    document.createElement("video");
+
+                video.src =
+                    post.media_url;
+
+                video.controls = true;
+
+                video.preload = "metadata";
+
+                mediaContainer.appendChild(video);
+
+            } else {
+
+                const image =
+                    document.createElement("img");
+
+                image.src =
+                    post.media_url;
+
+                image.alt =
+                    "Медіа";
+
+                image.loading =
+                    "lazy";
+
+                mediaContainer.appendChild(image);
+            }
+
+
+            article.appendChild(
+                mediaContainer
+            );
+
+        }
+
+
+        return article;
+    }
+
+
+    // ==========================================
+    // DATE
+    // ==========================================
+
+    function formatDate(dateString) {
+
+        const date =
+            new Date(dateString);
+
+
+        return date.toLocaleString(
+            "uk-UA",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+    }
+
+
+    // ==========================================
+    // UPLOAD MEDIA
+    // ==========================================
+
+    async function uploadMedia(file) {
+
+        const extension =
+            file.name
+                .split(".")
+                .pop()
+                .toLowerCase();
+
+
+        const fileName =
+            `${Date.now()}-${crypto.randomUUID()}.${extension}`;
+
+
+        const filePath =
+            `posts/${fileName}`;
+
+
+        const { error } =
+            await supabaseClient
+                .storage
+                .from("forum-media")
+                .upload(
+                    filePath,
+                    file,
+                    {
+                        cacheControl: "3600",
+                        upsert: false,
+                        contentType: file.type
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(error);
+
+            throw new Error(
+                "ДА БЛІІІІН,ашибка"
+            );
+        }
+
+
+        const { data } =
+            supabaseClient
+                .storage
+                .from("forum-media")
+                .getPublicUrl(filePath);
+
+
+        return data.publicUrl;
+    }
+
+
+    // ==========================================
+    // CREATE POST
+    // ==========================================
+
+    async function createPost() {
+
+        const nickname =
+            nicknameInput.value.trim();
+
+        const message =
+            messageInput.value.trim();
+
+        const file =
+            mediaInput.files[0];
+
+
+        // CHECK NICKNAME
+
+        if (
+            nickname.length < 1 ||
+            nickname.length > 40
+        ) {
+
+            status.textContent =
+                "Нік має бути від 1 до 40 символів ";
+
+            return;
+        }
+
+
+        // CHECK MESSAGE
+
+        if (message.length < 1) {
+
+            status.textContent =
+                "Напиши щось у повідомленні 👀";
+
+            return;
+        }
+
+
+        if (message.length > 5000) {
+
+            status.textContent =
+                "Ти ета...нє разганяйся.";
+
+            return;
+        }
+
+
+        submitBtn.disabled =
+            true;
+
+        status.textContent =
+            "Публікую...";
+
+
+        try {
+
+            let mediaUrl = null;
+            let mediaType = null;
+
+
+            // UPLOAD FILE
+
+            if (file) {
+
+                mediaType =
+                    file.type;
+
+                mediaUrl =
+                    await uploadMedia(file);
+            }
+
+
+            // INSERT POST
+
+            const { error } =
+                await supabaseClient
+                    .from("posts")
+                    .insert({
+
+                        nickname:
+                            nickname,
+
+                        message:
+                            message,
+
+                        media_url:
+                            mediaUrl,
+
+                        media_type:
+                            mediaType
+
+                    });
+
+
+            if (error) {
+
+                console.error(error);
+
+                throw new Error(
+                    "Да шош такоє...не публікується"
+                );
+            }
+
+
+            // CLEAR FORM
+
+            nicknameInput.value = "";
+            messageInput.value = "";
+            mediaInput.value = "";
+
+
+            status.textContent =
+                "Хеел єєє! 🗿";
+
+
+            await loadPosts();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.textContent =
+                "Ашибка: " +
+                error.message;
+
+
+        } finally {
+
+            submitBtn.disabled =
+                false;
+
+        }
+
+    }
+
+
+    // ==========================================
+    // BUTTON
+    // ==========================================
+
+    submitBtn.addEventListener(
+        "click",
+        createPost
+    );
+
+
+    // ==========================================
+    // START
+    // ==========================================
+
+    loadPosts();
+
+</script>
+
+</body>
+</html>
