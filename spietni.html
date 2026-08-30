@@ -1,190 +1,734 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Сплєтні</title>
+    <title>СПЛЄТНІ</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
 
-        body {
-            margin: 0;
-            padding: 30px 15px;
-            background: #111;
-            color: #eee;
-            font-family: Arial, sans-serif;
+        :root {
+            --black: #080808;
+            --dark: #111;
+            --dark2: #171717;
+            --red: #d00000;
+            --red2: #ff1717;
+            --red-dark: #650000;
+            --text: #eeeeee;
+            --gray: #777;
         }
 
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #260000 0%,
+                    #0b0000 25%,
+                    #080808 60%
+                );
+
+            color: var(--text);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            padding: 30px 15px;
+        }
+
+        /* =========================
+           ОСНОВНИЙ КОНТЕЙНЕР
+        ========================= */
+
         .container {
-            max-width: 800px;
+            width: 100%;
+            max-width: 850px;
             margin: auto;
         }
 
-        h1 {
+        /* =========================
+           ЗАГОЛОВОК
+        ========================= */
+
+        header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
-        .form {
-            background: #1c1c1c;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
+        h1 {
+            margin: 0;
+
+            color: #fff;
+
+            font-size: clamp(32px, 8vw, 65px);
+            letter-spacing: 8px;
+
+            text-shadow:
+                0 0 5px #fff,
+                0 0 15px var(--red),
+                0 0 35px var(--red);
+
+            cursor: pointer;
+
+            transition: 0.2s;
         }
+
+        h1:hover {
+            text-shadow:
+                0 0 8px #fff,
+                0 0 25px var(--red2),
+                0 0 60px var(--red2);
+        }
+
+        .subtitle {
+            margin-top: 8px;
+
+            color: #777;
+
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* =========================
+           ФОРМА
+        ========================= */
+
+        .form {
+            position: relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #171717,
+                    #0c0c0c
+                );
+
+            border: 1px solid #3b0000;
+
+            border-radius: 12px;
+
+            padding: 22px;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 0 25px rgba(180, 0, 0, 0.12);
+
+            transition: 0.2s;
+        }
+
+        .form::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 3px;
+
+            background: var(--red);
+
+            box-shadow:
+                0 0 12px var(--red);
+
+            border-radius: 12px 0 0 12px;
+        }
+
+        .form:hover {
+            border-color: #650000;
+
+            box-shadow:
+                0 0 35px rgba(220, 0, 0, 0.18);
+        }
+
+        /* =========================
+           INPUTS
+        ========================= */
 
         input,
         textarea {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
 
-            background: #111;
+            margin-bottom: 13px;
+
+            padding: 13px 14px;
+
+            border: 1px solid #333;
+            border-radius: 7px;
+
+            outline: none;
+
+            background: #090909;
             color: #eee;
 
-            border: 1px solid #444;
-            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
 
-            font: inherit;
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #555;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--red);
+
+            background: #100000;
+
+            box-shadow:
+                0 0 8px rgba(255, 0, 0, 0.35),
+                inset 0 0 10px rgba(255, 0, 0, 0.06);
         }
 
         textarea {
-            min-height: 120px;
+            min-height: 130px;
             resize: vertical;
         }
 
-        input[type="file"] {
-            padding: 10px;
+        /* =========================
+           FILE INPUT
+        ========================= */
+
+        .file-label {
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: #999;
+
+            font-size: 13px;
         }
 
-        button {
-            width: 100%;
-            padding: 13px;
+        input[type="file"] {
+            cursor: pointer;
 
-            border: none;
-            border-radius: 8px;
+            padding: 10px;
 
-            background: #eee;
-            color: #111;
+            color: #999;
+        }
 
-            font-size: 16px;
-            font-weight: bold;
+        input[type="file"]::file-selector-button {
+            border: 1px solid #650000;
+
+            border-radius: 6px;
+
+            padding: 8px 12px;
+
+            margin-right: 10px;
+
+            background: #170000;
+            color: #eee;
 
             cursor: pointer;
+
+            transition: 0.2s;
         }
 
-        button:hover {
-            background: #ccc;
+        input[type="file"]::file-selector-button:hover {
+            background: var(--red);
+
+            box-shadow:
+                0 0 15px var(--red);
         }
 
-        button:disabled {
+        /* =========================
+           PREVIEW
+        ========================= */
+
+        #preview {
+            display: none;
+
+            margin: 15px 0;
+
+            padding: 10px;
+
+            border: 1px solid #3b0000;
+            border-radius: 8px;
+
+            background: #090909;
+        }
+
+        #preview img,
+        #preview video {
+            display: block;
+
+            width: 100%;
+            max-height: 450px;
+
+            object-fit: contain;
+
+            border-radius: 6px;
+
+            box-shadow:
+                0 0 20px rgba(200, 0, 0, 0.2);
+        }
+
+        .preview-name {
+            margin-bottom: 8px;
+
+            color: #888;
+
+            font-size: 12px;
+
+            word-break: break-all;
+        }
+
+        /* =========================
+           КНОПКА
+        ========================= */
+
+        #submitBtn {
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid var(--red);
+
+            border-radius: 7px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #700000,
+                    #c00000,
+                    #700000
+                );
+
+            color: white;
+
+            font-weight: bold;
+            font-size: 15px;
+
+            letter-spacing: 2px;
+
+            cursor: pointer;
+
+            text-transform: uppercase;
+
+            transition:
+                0.15s;
+        }
+
+        #submitBtn:hover {
+            background:
+                linear-gradient(
+                    90deg,
+                    #a00000,
+                    #ff1111,
+                    #a00000
+                );
+
+            box-shadow:
+                0 0 20px rgba(255, 0, 0, 0.55);
+        }
+
+        #submitBtn:active {
+            transform: scale(0.98);
+
+            box-shadow:
+                0 0 35px red;
+        }
+
+        #submitBtn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
+        /* =========================
+           STATUS
+        ========================= */
+
         #status {
-            margin-top: 10px;
+            min-height: 20px;
+
+            margin-top: 12px;
+
             text-align: center;
+
+            color: #999;
+
+            font-size: 13px;
+        }
+
+        .error {
+            color: #ff3333 !important;
+
+            text-shadow:
+                0 0 8px red;
+        }
+
+        .success {
+            color: #ff5555 !important;
+
+            text-shadow:
+                0 0 10px red;
+        }
+
+        /* =========================
+           POSTS
+        ========================= */
+
+        #posts {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .post {
-            background: #1c1c1c;
-            border: 1px solid #333;
-            border-radius: 12px;
+            position: relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #171717,
+                    #0c0c0c
+                );
+
+            border: 1px solid #292929;
+
+            border-radius: 10px;
 
             padding: 18px;
-            margin-bottom: 15px;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s,
+                transform 0.2s;
         }
+
+        .post::before {
+            content: "";
+
+            position: absolute;
+
+            top: 12px;
+            bottom: 12px;
+            left: 0;
+
+            width: 2px;
+
+            background: #400000;
+
+            transition: 0.2s;
+        }
+
+        .post:hover {
+            border-color: #550000;
+
+            box-shadow:
+                0 0 20px rgba(180, 0, 0, 0.12);
+
+            transform: translateY(-1px);
+        }
+
+        /* КЛІК ПО ПОСТУ */
+
+        .post.flash {
+            border-color: var(--red2);
+
+            box-shadow:
+                0 0 10px var(--red),
+                0 0 35px rgba(255, 0, 0, 0.4);
+
+            animation: flashPost 0.45s ease;
+        }
+
+        .post.flash::before {
+            background: var(--red2);
+
+            box-shadow:
+                0 0 15px var(--red2);
+        }
+
+        @keyframes flashPost {
+
+            0% {
+                box-shadow:
+                    0 0 0 rgba(255, 0, 0, 0);
+            }
+
+            40% {
+                box-shadow:
+                    0 0 35px rgba(255, 0, 0, 0.8);
+            }
+
+            100% {
+                box-shadow:
+                    0 0 10px rgba(255, 0, 0, 0.15);
+            }
+        }
+
+        /* =========================
+           HEADER ПОСТА
+        ========================= */
 
         .post-header {
             display: flex;
+
             justify-content: space-between;
-            gap: 10px;
+            align-items: flex-start;
+
+            gap: 15px;
 
             margin-bottom: 12px;
         }
 
         .nickname {
-            font-weight: bold;
             color: #fff;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            text-shadow:
+                0 0 8px rgba(255, 0, 0, 0.4);
+        }
+
+        .nickname::before {
+            content: "@";
+
+            color: var(--red);
+
+            margin-right: 2px;
         }
 
         .date {
-            color: #777;
-            font-size: 13px;
+            color: #555;
+
+            font-size: 11px;
+
+            white-space: nowrap;
         }
 
+        /* =========================
+           MESSAGE
+        ========================= */
+
         .message {
+            color: #ddd;
+
+            line-height: 1.55;
+
             white-space: pre-wrap;
             word-break: break-word;
-            line-height: 1.5;
         }
+
+        /* =========================
+           MEDIA
+        ========================= */
 
         .media {
             margin-top: 15px;
-            max-width: 100%;
         }
 
         .media img,
         .media video {
             display: block;
 
-            max-width: 100%;
+            width: 100%;
             max-height: 600px;
 
-            border-radius: 8px;
+            object-fit: contain;
+
+            border-radius: 7px;
+
+            background: #050505;
+
+            border: 1px solid #300000;
+
+            transition: 0.2s;
         }
 
-        .loading {
-            text-align: center;
-            color: #777;
+        .media img:hover,
+        .media video:hover {
+            border-color: var(--red);
+
+            box-shadow:
+                0 0 20px rgba(255, 0, 0, 0.3);
         }
+
+        /* =========================
+           DELETE
+        ========================= */
+
+        .delete-btn {
+            margin-top: 15px;
+
+            padding: 7px 11px;
+
+            border: 1px solid #3d0000;
+
+            border-radius: 5px;
+
+            background: transparent;
+
+            color: #777;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .delete-btn:hover {
+            color: white;
+
+            border-color: var(--red);
+
+            background: #250000;
+
+            box-shadow:
+                0 0 12px rgba(255, 0, 0, 0.35);
+        }
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+            padding: 30px;
+
+            text-align: center;
+
+            color: #555;
+
+            letter-spacing: 2px;
+        }
+
+        .empty {
+            padding: 40px;
+
+            text-align: center;
+
+            color: #444;
+
+            border: 1px dashed #300000;
+
+            border-radius: 10px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 10px;
+            }
+
+            .form,
+            .post {
+                padding: 15px;
+            }
+
+            .post-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .date {
+                white-space: normal;
+            }
+
+            h1 {
+                letter-spacing: 4px;
+            }
+        }
+
     </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
-    <h1> Сплєтні :3</h1>
+    <header>
+        <h1 id="title">СПЛЄТНІ</h1>
+
+        <div class="subtitle">
+            скажи те, що не скажеш вголос
+        </div>
+    </header>
+
+
+    <!-- =========================
+         ФОРМА
+    ========================= -->
 
     <div class="form">
 
         <input
-            type="text"
             id="nickname"
-            placeholder="Твій нік"
+            type="text"
             maxlength="40"
+            placeholder="Хто ти, блііін..."
+            autocomplete="off"
         >
 
         <textarea
             id="message"
-            placeholder="Що хочеш сказати?"
             maxlength="5000"
+            placeholder="Пиши сюди..."
         ></textarea>
 
+
+        <label class="file-label">
+            Додати фото, GIF або відео
+        </label>
+
         <input
-            type="file"
             id="media"
+            type="file"
             accept="image/*,video/*"
         >
+
+
+        <div id="preview"></div>
+
 
         <button id="submitBtn">
             Опублікувати
         </button>
 
+
         <div id="status"></div>
 
     </div>
 
+
+    <!-- =========================
+         POSTS
+    ========================= -->
+
     <div id="posts">
-        <div class="loading">Ща..ща всьо будєт...</div>
+
+        <div class="loading">
+            Ща..ща всьо будєт...
+        </div>
+
     </div>
 
 </div>
@@ -192,9 +736,9 @@
 
 <script>
 
-    // ==========================================
+    // ==================================================
     // SUPABASE
-    // ==========================================
+    // ==================================================
 
     const SUPABASE_URL =
         "https://sijjjlnhfmbmvswphxhz.supabase.co";
@@ -210,9 +754,9 @@
         );
 
 
-    // ==========================================
+    // ==================================================
     // ELEMENTS
-    // ==========================================
+    // ==================================================
 
     const nicknameInput =
         document.getElementById("nickname");
@@ -223,6 +767,9 @@
     const mediaInput =
         document.getElementById("media");
 
+    const preview =
+        document.getElementById("preview");
+
     const submitBtn =
         document.getElementById("submitBtn");
 
@@ -232,23 +779,180 @@
     const postsContainer =
         document.getElementById("posts");
 
+    const title =
+        document.getElementById("title");
 
-    // ==========================================
+
+    // ==================================================
+    // FILE PREVIEW
+    // ==================================================
+
+    mediaInput.addEventListener(
+        "change",
+        function () {
+
+            const file =
+                mediaInput.files[0];
+
+
+            preview.innerHTML = "";
+
+            preview.style.display = "none";
+
+
+            if (!file) {
+                return;
+            }
+
+
+            // Розмір максимум 50 MB
+
+            const maxSize =
+                50 * 1024 * 1024;
+
+
+            if (file.size > maxSize) {
+
+                showStatus(
+                    "Нє, ну ти не перегібай. Максимум 50 MB.",
+                    true
+                );
+
+                mediaInput.value = "";
+
+                return;
+            }
+
+
+            // Ща гляну тип
+
+            if (
+                !file.type.startsWith("image/") &&
+                !file.type.startsWith("video/")
+            ) {
+
+                showStatus(
+                    "Можна завантажувати тільки фото, GIF або відео.",
+                    true
+                );
+
+                mediaInput.value = "";
+
+                return;
+            }
+
+
+            const name =
+                document.createElement("div");
+
+            name.className =
+                "preview-name";
+
+            name.textContent =
+                file.name;
+
+
+            preview.appendChild(name);
+
+
+            const url =
+                URL.createObjectURL(file);
+
+
+            if (file.type.startsWith("video/")) {
+
+                const video =
+                    document.createElement("video");
+
+                video.src = url;
+
+                video.controls = true;
+
+                video.preload = "metadata";
+
+                preview.appendChild(video);
+
+            } else {
+
+                const image =
+                    document.createElement("img");
+
+                image.src = url;
+
+                image.alt = "Preview";
+
+                preview.appendChild(image);
+
+            }
+
+
+            const remove =
+                document.createElement("button");
+
+            remove.type = "button";
+
+            remove.className =
+                "delete-btn";
+
+            remove.textContent =
+                "× Прибрати файл";
+
+
+            remove.addEventListener(
+                "click",
+                function () {
+
+                    mediaInput.value = "";
+
+                    preview.innerHTML = "";
+
+                    preview.style.display = "none";
+
+                    URL.revokeObjectURL(url);
+                }
+            );
+
+
+            preview.appendChild(remove);
+
+            preview.style.display = "block";
+        }
+    );
+
+
+    // ==================================================
+    // STATUS
+    // ==================================================
+
+    function showStatus(text, error = false) {
+
+        status.textContent = text;
+
+        status.className =
+            error ? "error" : "success";
+    }
+
+
+    // ==================================================
     // LOAD POSTS
-    // ==========================================
+    // ==================================================
 
     async function loadPosts() {
 
         postsContainer.innerHTML =
-            '<div class="loading">Завантаження...</div>';
+            '<div class="loading">ЗАВАНТАЖЕННЯ...</div>';
+
 
         const { data, error } =
             await supabaseClient
                 .from("posts")
                 .select("*")
-                .order("created_at", {
-                    ascending: false
-                });
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
 
 
         if (error) {
@@ -256,7 +960,11 @@
             console.error(error);
 
             postsContainer.innerHTML =
-                "<p>Не вдалося завантажити пости -_-</p>";
+                `
+                <div class="empty">
+                    Та блііін...
+                </div>
+                `;
 
             return;
         }
@@ -268,7 +976,11 @@
         if (!data || data.length === 0) {
 
             postsContainer.innerHTML =
-                '<div class="loading">Поки тут тихо 👀</div>';
+                `
+                <div class="empty">
+                    Тут тіха, хах, як в могилі...
+                </div>
+                `;
 
             return;
         }
@@ -276,23 +988,19 @@
 
         data.forEach(post => {
 
-            const postElement =
-                createPostElement(post);
+            const element =
+                createPost(post);
 
-            postsContainer.appendChild(
-                postElement
-            );
-
+            postsContainer.appendChild(element);
         });
-
     }
 
 
-    // ==========================================
-    // CREATE POST ELEMENT
-    // ==========================================
+    // ==================================================
+    // CREATE POST
+    // ==================================================
 
-    function createPostElement(post) {
+    function createPost(post) {
 
         const article =
             document.createElement("article");
@@ -305,13 +1013,15 @@
         const header =
             document.createElement("div");
 
-        header.className = "post-header";
+        header.className =
+            "post-header";
 
 
         const nickname =
             document.createElement("div");
 
-        nickname.className = "nickname";
+        nickname.className =
+            "nickname";
 
         nickname.textContent =
             post.nickname;
@@ -320,7 +1030,8 @@
         const date =
             document.createElement("div");
 
-        date.className = "date";
+        date.className =
+            "date";
 
         date.textContent =
             formatDate(post.created_at);
@@ -335,13 +1046,15 @@
         const message =
             document.createElement("div");
 
-        message.className = "message";
+        message.className =
+            "message";
 
         message.textContent =
             post.message;
 
 
         article.appendChild(header);
+
         article.appendChild(message);
 
 
@@ -349,10 +1062,10 @@
 
         if (post.media_url) {
 
-            const mediaContainer =
+            const media =
                 document.createElement("div");
 
-            mediaContainer.className =
+            media.className =
                 "media";
 
 
@@ -369,9 +1082,10 @@
 
                 video.controls = true;
 
-                video.preload = "metadata";
+                video.preload =
+                    "metadata";
 
-                mediaContainer.appendChild(video);
+                media.appendChild(video);
 
             } else {
 
@@ -387,24 +1101,63 @@
                 image.loading =
                     "lazy";
 
-                mediaContainer.appendChild(image);
+                media.appendChild(image);
             }
 
 
-            article.appendChild(
-                mediaContainer
-            );
-
+            article.appendChild(media);
         }
+
+
+        // DELETE BUTTON
+
+        const deleteBtn =
+            document.createElement("button");
+
+        deleteBtn.className =
+            "delete-btn";
+
+        deleteBtn.textContent =
+            "🗑 НАХ!";
+
+
+        deleteBtn.addEventListener(
+            "click",
+            async function (event) {
+
+                event.stopPropagation();
+
+                await deletePost(post);
+            }
+        );
+
+
+        article.appendChild(deleteBtn);
+
+
+        // CLICK GLOW
+
+        article.addEventListener(
+            "click",
+            function () {
+
+                article.classList.remove("flash");
+
+                void article.offsetWidth;
+
+                article.classList.add("flash");
+
+            }
+        );
 
 
         return article;
     }
 
 
-    // ==========================================
+    // ==================================================
     // DATE
-    // ==========================================
+    // ==================================================
 
     function formatDate(dateString) {
 
@@ -426,9 +1179,9 @@
     }
 
 
-    // ==========================================
-    // UPLOAD MEDIA
-    // ==========================================
+    // ==================================================
+    // UPLOAD FILE
+    // ==================================================
 
     async function uploadMedia(file) {
 
@@ -440,11 +1193,15 @@
 
 
         const fileName =
-            `${Date.now()}-${crypto.randomUUID()}.${extension}`;
+            Date.now()
+            + "-"
+            + crypto.randomUUID()
+            + "."
+            + extension;
 
 
         const filePath =
-            `posts/${fileName}`;
+            "posts/" + fileName;
 
 
         const { error } =
@@ -464,10 +1221,14 @@
 
         if (error) {
 
-            console.error(error);
+            console.error(
+                "UPLOAD ERROR:",
+                error
+            );
 
             throw new Error(
-                "ДА БЛІІІІН,ашибка"
+                "Нє палучілось...: "
+                + error.message
             );
         }
 
@@ -479,13 +1240,16 @@
                 .getPublicUrl(filePath);
 
 
-        return data.publicUrl;
+        return {
+            url: data.publicUrl,
+            path: filePath
+        };
     }
 
 
-    // ==========================================
+    // ==================================================
     // CREATE POST
-    // ==========================================
+    // ==================================================
 
     async function createPost() {
 
@@ -499,26 +1263,34 @@
             mediaInput.files[0];
 
 
-        // CHECK NICKNAME
+        // NICKNAME
 
         if (
             nickname.length < 1 ||
             nickname.length > 40
         ) {
 
-            status.textContent =
-                "Нік має бути від 1 до 40 символів ";
+            showStatus(
+                "Нік має містити від 1 до 40 символів.",
+                true
+            );
+
+            nicknameInput.focus();
 
             return;
         }
 
 
-        // CHECK MESSAGE
+        // MESSAGE
 
         if (message.length < 1) {
 
-            status.textContent =
-                "Напиши щось у повідомленні 👀";
+            showStatus(
+                "Ну шо, розказуй",
+                true
+            );
+
+            messageInput.focus();
 
             return;
         }
@@ -526,39 +1298,47 @@
 
         if (message.length > 5000) {
 
-            status.textContent =
-                "Ти ета...нє разганяйся.";
+            showStatus(
+                "Ну ти поет, харе писать.",
+                true
+            );
 
             return;
         }
 
 
-        submitBtn.disabled =
-            true;
+        submitBtn.disabled = true;
 
-        status.textContent =
-            "Публікую...";
+        showStatus(
+            "Щас всє заценят..."
+        );
+
+
+        let uploadedFile = null;
 
 
         try {
 
-            let mediaUrl = null;
-            let mediaType = null;
-
-
-            // UPLOAD FILE
+            // UPLOAD MEDIA
 
             if (file) {
 
-                mediaType =
-                    file.type;
+                showStatus(
+                    "Грузіт медіа..."
+                );
 
-                mediaUrl =
+
+                uploadedFile =
                     await uploadMedia(file);
             }
 
 
             // INSERT POST
+
+            showStatus(
+                "САСІТЄ пост..."
+            );
+
 
             const { error } =
                 await supabaseClient
@@ -572,33 +1352,62 @@
                             message,
 
                         media_url:
-                            mediaUrl,
+                            uploadedFile
+                                ? uploadedFile.url
+                                : null,
 
                         media_type:
-                            mediaType
-
+                            file
+                                ? file.type
+                                : null
                     });
 
 
             if (error) {
 
-                console.error(error);
+                console.error(
+                    "POST ERROR:",
+                    error
+                );
+
+
+                // Якщо пост не створився,
+                // але файл вже завантажився —
+                // пробуємо прибрати файл
+
+                if (uploadedFile) {
+
+                    await supabaseClient
+                        .storage
+                        .from("forum-media")
+                        .remove([
+                            uploadedFile.path
+                        ]);
+                }
+
 
                 throw new Error(
-                    "Да шош такоє...не публікується"
+                    error.message
                 );
             }
 
 
-            // CLEAR FORM
+            // CLEAR
 
             nicknameInput.value = "";
+
             messageInput.value = "";
+
             mediaInput.value = "";
 
+            preview.innerHTML = "";
 
-            status.textContent =
-                "Хеел єєє! 🗿";
+            preview.style.display = "none";
+
+
+            showStatus(
+                "Уффф! Пєсня 🩸"
+            );
 
 
             await loadPosts();
@@ -608,24 +1417,125 @@
 
             console.error(error);
 
-            status.textContent =
+
+            showStatus(
                 "Ашибка: " +
-                error.message;
+                error.message,
+                true
+            );
 
 
         } finally {
 
-            submitBtn.disabled =
-                false;
-
+            submitBtn.disabled = false;
         }
-
     }
 
 
-    // ==========================================
+    // ==================================================
+    // DELETE POST
+    // ==================================================
+
+    async function deletePost(post) {
+
+        const confirmed =
+            confirm(
+                "Унічтожить цей пост?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            /*
+             * Спочатку видаляємо файл.
+             *
+             * У media_url зберігається
+             * повний URL, тому дістаємо
+             * шлях після /forum-media/
+             */
+
+            if (post.media_url) {
+
+                const marker =
+                    "/forum-media/";
+
+
+                const index =
+                    post.media_url.indexOf(
+                        marker
+                    );
+
+
+                if (index !== -1) {
+
+                    const filePath =
+                        post.media_url
+                            .substring(
+                                index + marker.length
+                            );
+
+
+                    const { error: fileError } =
+                        await supabaseClient
+                            .storage
+                            .from("forum-media")
+                            .remove([
+                                filePath
+                            ]);
+
+
+                    if (fileError) {
+
+                        console.warn(
+                            "Нє палучілось видалити файл:",
+                            fileError
+                        );
+                    }
+                }
+            }
+
+
+            // DELETE POST
+
+            const { error } =
+                await supabaseClient
+                    .from("posts")
+                    .delete()
+                    .eq(
+                        "id",
+                        post.id
+                    );
+
+
+            if (error) {
+
+                throw error;
+            }
+
+
+            await loadPosts();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Нє палучілось видалити пост: "
+                + error.message
+            );
+        }
+    }
+
+
+    // ==================================================
     // BUTTON
-    // ==========================================
+    // ==================================================
 
     submitBtn.addEventListener(
         "click",
@@ -633,9 +1543,38 @@
     );
 
 
-    // ==========================================
+    // ==================================================
+    // TITLE CLICK
+    // ==================================================
+
+    title.addEventListener(
+        "click",
+        function () {
+
+            title.style.textShadow =
+                `
+                0 0 5px white,
+                0 0 20px red,
+                0 0 40px red,
+                0 0 80px red
+                `;
+
+
+            setTimeout(
+                function () {
+
+                    title.style.textShadow = "";
+
+                },
+                500
+            );
+        }
+    );
+
+
+    // ==================================================
     // START
-    // ==========================================
+    // ==================================================
 
     loadPosts();
 
