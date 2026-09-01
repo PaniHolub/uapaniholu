@@ -1041,31 +1041,6 @@ function renderPost(post) {
     }
 
 
-    /* DELETE */
-
-    const deleteBtn =
-        document.createElement("button");
-
-    deleteBtn.className =
-        "delete-btn";
-
-    deleteBtn.textContent =
-        "🗑 НАХ!";
-
-
-    deleteBtn.addEventListener(
-        "click",
-        async function(event) {
-
-            event.stopPropagation();
-
-            await deletePost(post);
-        }
-    );
-
-
-    article.appendChild(deleteBtn);
-
 
     /* GLOW */
 
@@ -1375,18 +1350,6 @@ async function publishPost() {
 /* =========================
    DELETE POST
 ========================= */
-
-async function deletePost(post) {
-
-    const confirmed =
-        confirm(
-            "Унічтожить цей пост?"
-        );
-
-
-    if (!confirmed) {
-        return;
-    }
 
 
     try {
