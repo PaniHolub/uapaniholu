@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="images/favico.png">
 
 
+
 <style>
     * {
         box-sizing: border-box;
@@ -51,89 +52,85 @@
         object-fit: contain;
     }
 
-    /* ПЛЕЙЛИСТ З ВОГНЯНОЮ РАМКОЮ */
+    /* ПЛЕЙЛИСТ І КОМЕНТАРІ */
 
-   
-/* КОНТЕЙНЕРИ ВОГНЯНОЇ РАМКИ */
+    .playlist,
+    .bottom-box {
+        position: relative;
+        isolation: isolate;
+        width: 700px;
+        max-width: 100%;
+        margin: 30px auto;
+        padding: 10px;
+        background: #080303;
+        border: 1px solid #ff4422;
+        box-shadow:
+            0 0 12px #ff220066,
+            0 0 28px #ff330044,
+            inset 0 0 25px #260700;
+    }
 
-.fire-frame {
-    position: relative;
-    isolation: isolate;
-    width: 700px;
-    max-width: 90%;
-    margin: 40px auto;
-}
+    .playlist {
+        height: 450px;
+        overflow-y: auto;
+    }
 
-/* Самі прямокутники */
+    /* ВОГНЯНА РАМКА З ЧОТИРЬОХ СТОРІН */
 
-.fire-frame .playlist,
-.fire-frame .bottom-box {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    border: 1px solid #ff4828;
-    background: #080303;
-    box-shadow:
-        0 0 12px #ff220066,
-        inset 0 0 25px #260700;
-}
+    .playlist::before,
+    .bottom-box::before {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        inset: -22px;
+        padding: 22px;
+        pointer-events: none;
 
-/* ЧОТИРИ СТОРОНИ ВОГНЮ */
+        background:
+            url("./gif/firex.gif") top left / auto 22px repeat-x,
+            url("./gif/firex.gif") bottom left / auto 22px repeat-x,
+            url("./gif/firex.gif") top left / 22px auto repeat-y,
+            url("./gif/firex.gif") top right / 22px auto repeat-y;
 
-.fire-edge {
-    position: absolute;
-    z-index: 2;
-    pointer-events: none;
-    background-image: url("./gif/firex.gif");
-    background-repeat: repeat;
-    filter: saturate(1.3);
-}
+        background-color: transparent;
+        background-repeat:
+            repeat-x,
+            repeat-x,
+            repeat-y,
+            repeat-y;
 
-/* Верх */
+        mask:
+            linear-gradient(#000 0 0) content-box,
+            linear-gradient(#000 0 0);
 
-.fire-top {
-    left: -12px;
-    right: -12px;
-    top: -24px;
-    height: 28px;
-    background-size: auto 100%;
-    background-repeat: repeat-x;
-}
+        mask-composite: exclude;
+    }
 
-/* Низ */
+    .track {
+        padding: 18px;
+        margin-bottom: 10px;
+        border: 1px solid #77251b;
+        background: #140705;
+    }
 
-.fire-bottom {
-    left: -12px;
-    right: -12px;
-    bottom: -24px;
-    height: 28px;
-    background-size: auto 100%;
-    background-repeat: repeat-x;
-    transform: rotate(180deg);
-}
+    .track-name {
+        display: block;
+        margin-bottom: 10px;
+        color: #ff785c;
+        text-align: left;
+    }
 
-/* Ліва та права сторони */
+    .track audio {
+        width: 100%;
+        accent-color: #ff4422;
+    }
 
-.fire-left,
-.fire-right {
-    top: -12px;
-    bottom: -12px;
-    width: 28px;
-    background-size: 100% auto;
-    background-repeat: repeat-y;
-}
+    /* НИЖНІЙ КВАДРАТ */
 
-.fire-left {
-    left: -24px;
-}
-
-.fire-right {
-    right: -24px;
-    transform: scaleX(-1);
-}
-
+    .bottom-box {
+        margin: 45px auto 30px;
+        padding: 25px;
+    }
 
     /* ПОСИЛАННЯ НА ГОЛОВНУ */
 
@@ -244,10 +241,11 @@
 
         .playlist,
         .bottom-box {
-            max-width: calc(100% - 24px);
+            max-width: 100%;
         }
     }
 </style>
+
 
 </head>
 
