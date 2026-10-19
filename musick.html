@@ -75,32 +75,48 @@
         overflow-y: auto;
     }
 
-    /* ВОГНЯНА РАМКА З ЧОТИРЬОХ СТОРІН */
+  
+/* МУЗИКА — ЗВИЧАЙНА РАМКА БЕЗ ВОГНЮ */
 
-    .playlist::before,
-    
-/* ВОГНЯНА РАМКА ТІЛЬКИ ДЛЯ КОМЕНТАРІВ */
+.playlist::before {
+    content: none;
+}
+
+/* ВОГОНЬ ТІЛЬКИ НА КВАДРАТІ КОМЕНТАРІВ */
 
 .bottom-box::before {
     content: "";
     position: absolute;
     z-index: 2;
     inset: -22px;
-    padding: 22px;
     pointer-events: none;
 
-    background:
-        url("./gif/firex.gif") top left / auto 22px repeat-x,
-        url("./gif/firex.gif") bottom left / auto 22px repeat-x,
-        url("./gif/firex.gif") top left / 22px auto repeat-y,
-        url("./gif/firex.gif") top right / 22px auto repeat-y;
+    background-image:
+        url("./gif/firex.gif"),
+        url("./gif/firex.gif"),
+        url("./gif/firex.gif");
+
+    background-position:
+        top center,
+        left bottom,
+        right bottom;
 
     background-repeat:
-        repeat-x,
         repeat-x,
         repeat-y,
         repeat-y;
 
+    background-size:
+        auto 22px,
+        22px auto,
+        22px auto;
+
+    /* Маска залишає вогонь лише зовні прямокутника */
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+    -webkit-mask-composite: xor;
     mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
@@ -108,22 +124,32 @@
     mask-composite: exclude;
 }
 
-/* БОКОВЕ ПОЛУМ'Я: НИЖНІМ КРАЄМ ДО РАМКИ */
+/* БОКОВИЙ ВОГОНЬ — ГОРИЗОНТАЛЬНА GIF, ПОВЕРНУТА НА 90° */
 
 .bottom-box::before {
-    background:
-        url("./gif/firex.gif") top left / auto 22px repeat-x,
-        url("./gif/firex.gif") bottom left / auto 22px repeat-x,
-        url("./gif/firex.gif") bottom left / 22px auto repeat-y,
-        url("./gif/firex.gif") bottom right / 22px auto repeat-y;
+    background-image:
+        url("./gif/firex.gif"),
+        url("./gif/firex.gif"),
+        url("./gif/firex.gif");
+
+    background-position:
+        top center,
+        left bottom,
+        right bottom;
 
     background-repeat:
         repeat-x,
-        repeat-x,
         repeat-y,
         repeat-y;
+
+    background-size:
+        auto 22px,
+        22px auto,
+        22px auto;
 }
 
+/* ПРИБИРАЄМО ВОГОНЬ ЗНИЗУ */
+ф
 
     /* ПОСИЛАННЯ НА ГОЛОВНУ */
 
