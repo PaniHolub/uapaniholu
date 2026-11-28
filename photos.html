@@ -14,26 +14,26 @@
     box-sizing: border-box;
     cursor: url("./images/cursorPISTOL.png") 5 5, auto;
 }
- 
-body {
-    background: #080008;
-    color: #d8a7ff;
-    font-family: monospace;
-    text-align: center;
-    margin: 0;
-    padding: 30px;
-}
+   /* ===== ФОН ===== */
 
-h1 {
-    color: #c15cff;
-    text-shadow:
-        0 0 5px #b84cff,
-        0 0 20px #8b00ff;
-}
+        body {
+            margin: 0;
+            background: #080008;
+            color: #d9a7ff;
+            font-family: "Courier New", monospace;
+            min-height: 100vh;
+        }
 
-p {
-    color: #a45bcf;
-}
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background: url("images/bacgraund1.png") center / cover no-repeat;
+
+            z-index: 0;
+            pointer-events: none;
+        }
 
 /* ГАЛЕРЕЯ */
 
