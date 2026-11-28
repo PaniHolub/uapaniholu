@@ -9,6 +9,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+    
+
     <style>
         * {
             box-sizing: border-box;
@@ -110,12 +112,7 @@ body > * {
 
             margin-bottom: 30px;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #171717,
-                    #0c0c0c
-                );
+            background: #000000;
 
             border: 1px solid #3b0000;
 
@@ -398,12 +395,7 @@ body > * {
 
             padding: 18px;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #171717,
-                    #0c0c0c
-                );
+          background: #000000;
 
             border: 1px solid #292929;
 
@@ -639,6 +631,51 @@ body > * {
                 letter-spacing: 4px;
             }
         }
+  /* ===== PURE BLACK + RED TEXT ===== */
+
+/* Чорні блоки */
+.form,
+.post,
+#preview {
+    background: #000000 !important;
+}
+
+/* Червоні написи */
+.subtitle,
+.file-label,
+.preview-name,
+#status,
+.date,
+.message,
+.delete-btn,
+.loading,
+.empty {
+    color: #ff2020 !important;
+}
+
+/* Підказки в полях */
+input::placeholder,
+textarea::placeholder {
+    color: #aa0000 !important;
+}
+
+/* Текст вибору файлу */
+input[type="file"] {
+    color: #ff2020 !important;
+}
+
+/* Червоні рамки блоків */
+.form,
+.post {
+    border-color: #550000;
+}
+
+/* Чорні поля введення */
+input,
+textarea {
+    background: #000000 !important;
+    color: #ff3030 !important;
+}      
     </style>
 </head>
 
