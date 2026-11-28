@@ -25,24 +25,31 @@
             --gray: #777;
         }
 
+         /* ===== ФОН ===== */
+
         body {
             margin: 0;
+            background: #080008;
+            color: #d9a7ff;
+            font-family: "Courier New", monospace;
             min-height: 100vh;
-            padding: 30px 15px;
-
-            background:
-                radial-gradient(
-                    circle at top,
-                    #260000 0%,
-                    #0b0000 25%,
-                    #080808 60%
-                );
-
-            color: var(--text);
-
-            font-family: Arial, Helvetica, sans-serif;
         }
 
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background: url("background.png") center / cover no-repeat;
+
+            z-index: 0;
+            pointer-events: none;
+        }
+/* ВЕСЬ КОНТЕНТ ПОВЕРХ ФОНУ */
+body > * {
+    position: relative;
+    z-index: 1;
+}
         .container {
             width: 100%;
             max-width: 850px;
